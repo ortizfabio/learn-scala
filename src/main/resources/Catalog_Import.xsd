@@ -1,0 +1,216 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<xs:schema elementFormDefault='qualified' targetNamespace='http://com.elasticpath/repo/catalog' version='1.0'
+           xmlns:tns='http://com.elasticpath/repo/catalog'
+           xmlns:xs='http://www.w3.org/2001/XMLSchema'
+           xmlns:common='http://com.elasticpath/repo/common'>
+    <xs:import namespace='http://com.elasticpath/repo/common'/>
+    <xs:element name='Catalog' type='tns:Catalog'/>
+    <xs:complexType name='Catalog'>
+        <xs:sequence>
+            <xs:element name='Code' type='xs:string'>
+                <xs:annotation>
+                    <xs:documentation xml:lang='en'>
+						The unique identifier for this catalog.  This is a defined value in Commerce per brand with single value at the moment 'ocean_mc'.
+					</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name='Products'>
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name='Product' type='tns:Product' maxOccurs='unbounded'/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name='Product'>
+        <xs:sequence>
+            <xs:element name='Code' type='xs:string'>
+                <xs:annotation>
+                    <xs:documentation xml:lang='en'>
+                        The unique identifier for this Product.  This will be a synthetic code constructed according to the pattern brand_vendorid_vendorproductid.
+					</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name='Name' minOccurs='0'>
+                <xs:annotation>
+                    <xs:documentation xml:lang='en'>
+						The human-readable name for this Product.
+					</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name='Value' type='common:LocalisedValue' maxOccurs='unbounded'/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name='Type' type='tns:ProductType'/>
+            <xs:element name='BrandCode' type='xs:string'>
+                <xs:annotation>
+                    <xs:documentation xml:lang='en'>
+						The predefined product brand. Default to 'Ocean' until we find a use case for this value in Commerce.
+					</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name='TaxCode' type='xs:string' minOccurs='0'>
+                <xs:annotation>
+                    <xs:documentation xml:lang='en'>
+						Until the tax solution is completed this value should be supplied as 'NONE'.
+					</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name='Availability' type='tns:Availability'/>
+            <xs:element name='Attributes' type='tns:Attributes'/>
+            <xs:element name='Categories'>
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name='Category' type='tns:Category' maxOccurs='unbounded'/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name='Associations'>
+                <xs:annotation>
+                    <xs:documentation xml:lang='en'>
+						There are no use cases for associations yet so this is only included for completeness.
+					</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name='Association' type='tns:Association' minOccurs='0' maxOccurs='unbounded'/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name='Skus'>
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name='Sku' type='tns:Sku' maxOccurs='unbounded'/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name='BasePrice' type='tns:BasePrice' minOccurs='0'/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name='Availability'>
+        <xs:sequence>
+            <xs:element name='AvailabilityRule' type='tns:AvailabilityRule'/>
+            <xs:element name='Displayable' type='xs:boolean'>
+                <xs:annotation>
+                    <xs:documentation xml:lang='en'>
+						Determines whether or not the Product is visible to customers.
+					</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name='EnableDateTime' type='xs:dateTime'>
+                <xs:annotation>
+                    <xs:documentation xml:lang='en'>
+						The date and time at which the Product is available for sale.
+					</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name='DisableDateTime' type='xs:dateTime' minOccurs='0'>
+                <xs:annotation>
+                    <xs:documentation xml:lang='en'>
+						The date and time at which the Product is no longer available for sale.
+					</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:simpleType name='AvailabilityRule'>
+        <xs:restriction base='xs:string'>
+            <xs:enumeration value='ALWAYS_AVAILABLE'/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name='Sku'>
+        <xs:sequence>
+            <xs:element name='Code' type='xs:string'>
+                <xs:annotation>
+                    <xs:documentation xml:lang='en'>
+                        The unique identifier for this SKU - differentiated from the product by the variation suffix.  This will be a synthetic code constructed according to the pattern brand_vendorid_vendorproductid_variation.
+					</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name='EnableDateTime' type='xs:dateTime'>
+                <xs:annotation>
+                    <xs:documentation xml:lang='en'>
+						The date and time at which the SKU is available for sale.
+					</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name='DisableDateTime' type='xs:dateTime' minOccurs='0'>
+                <xs:annotation>
+                    <xs:documentation xml:lang='en'>
+						The date and time at which the SKU is no longer available for sale.
+					</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name='Attributes' type='tns:Attributes'/>
+            <xs:element name='TaxCode' type='xs:string' minOccurs='0'>
+                <xs:annotation>
+                    <xs:documentation xml:lang='en'>
+						Not currently used for Trident. he tax code to use for this SKU. A value defined here will override any value stored in the
+                        parent Product Type or Product levels. If omitted, the tax code will be inherited from the Product or
+                        Product Type, in that order.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name='BasePrice' type='tns:BasePrice' minOccurs='0'/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name='Association'>
+        <xs:simpleContent>
+            <xs:extension base='xs:string'>
+                <xs:attribute name='key' type='tns:AssociationType' use='required'/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name='Category'>
+        <xs:sequence>
+            <xs:element name='Catalog' type='xs:string'>
+                <xs:annotation>
+                    <xs:documentation xml:lang='en'>
+						This is required when associating the product to either linked or regular categories in virtual catalogs.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name='Code' type='xs:string'/>
+            <xs:element name='DisplayName' type='xs:string'/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:simpleType name='ProductType'>
+        <xs:restriction base='xs:string'>
+            <!-- Currently defined product types. -->
+            <xs:enumeration value='Dining'/>
+            <xs:enumeration value='Excursion'/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name='Attributes'>
+        <xs:sequence>
+            <xs:element name='Attribute' type='tns:Attribute' minOccurs='0' maxOccurs='unbounded'/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name='Attribute'>
+        <xs:sequence>
+            <xs:element name='value' type='common:LocalisedValue' maxOccurs='unbounded'/>
+        </xs:sequence>
+        <xs:attribute name='key' type='xs:string' use='required'/>
+    </xs:complexType>
+    <xs:simpleType name='AssociationType'>
+        <xs:restriction base='xs:string'>
+            <xs:enumeration value='ACCESSORY'/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name='BasePrice'>
+        <xs:sequence>
+            <xs:element name='Quantity' type='xs:int'/>
+            <xs:element name='ListPrice' type='xs:decimal'/>
+            <xs:element name='Currency' type='xs:string'>
+                <xs:annotation>
+                    <xs:documentation xml:lang='en'>
+						The ISO-4217 currency code.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>
