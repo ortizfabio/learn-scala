@@ -1,0 +1,50 @@
+
+
+# IDE files
+.idea
+.idea_modules
+.iml
+*.iml
+.scala_dependencies
+.worksheet
+.*.swp
+.*.swo
+*~
+
+# Scala
+*.class
+*.log
+
+# Sbt-specific
+.cache/
+.history/
+.history
+.lib/
+dist/*
+target/
+lib_managed/
+src_managed/
+project/boot/
+project/plugins/project/
+
+# xiIntegrate-specific
+tmp/
+priv/
+cameldata/
+sandboxes/vagrant/projects/*
+*checkpoint*
+
+# OSX-specific
+.DS_Store
+
+# Vagrant
+.vagrant
+*.retry
+
+# Bin files we want to add explicitly
+*.rpm
+*.tar
+*.gz
+*.tgz
+
+
