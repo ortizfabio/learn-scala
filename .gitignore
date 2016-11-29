@@ -48,3 +48,4 @@ sandboxes/vagrant/projects/*
 *.tgz
 
 
+/pom.xml
