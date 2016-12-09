@@ -1,6 +1,7 @@
-package akka.testkit
+package com.bytetrend.sandbox.scala.akka.test
 
 import akka.actor._
+import akka.testkit.{ImplicitSender, TestKit}
 import com.typesafe.config.ConfigFactory
 import org.specs2.mutable._
 

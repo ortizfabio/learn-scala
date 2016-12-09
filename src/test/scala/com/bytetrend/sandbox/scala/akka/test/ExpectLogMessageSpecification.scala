@@ -2,7 +2,7 @@ package com.bytetrend.sandbox.scala.akka.test
 
 
 import akka.actor.{ActorKilledException, ActorSystem, Kill, Props}
-import akka.testkit.{TestKitBase, AkkaTestkitSpecs2Support, TestProbe, EventFilter}
+import akka.testkit.{TestKitBase, TestProbe, EventFilter}
 import com.typesafe.config.ConfigFactory
 import org.specs2.matcher.MatchResult
 import org.specs2.mutable.{ Specification}

@@ -3,7 +3,6 @@ package com.bytetrend.sandbox.scala.akka.test
 import java.util.concurrent.TimeUnit._
 
 import akka.actor.{ActorRef, Props}
-import akka.testkit.AkkaTestkitSpecs2Support
 import akka.util.Timeout
 import com.bytetrend.sandbox.scala.akka.{Child, Supervisor}
 import org.specs2.execute.AsResult
