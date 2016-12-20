@@ -1,8 +1,9 @@
 package com.bytetrend.sandbox.scala.concurrent
 
+import java.io.File
+
 import scala.concurrent.{Await, Promise, Future}
 import scala.util.{Success, Failure}
-//import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.duration._
 
 import java.util.concurrent.Executors
@@ -34,4 +35,58 @@ object Government extends App{
   }
   Await.ready(taxCutF, 5 seconds)
   println("The end")
+}
+object PromisesCreate extends App {
+  import scala.concurrent.ExecutionContext.Implicits.global
+  val p = Promise[String]
+  val q = Promise[String]
+  p.future foreach { case x => println(s"p succeeded with '$x'") }
+  Thread.sleep(1000)
+  p success "assigned"
+  q failure new Exception("not kept")
+  q.future.failed foreach { case t => println(s"q failed with $t") }
+  Thread.sleep(1000)
+}
+
+object PromisesCustomAsync extends App {
+  import scala.concurrent.ExecutionContext.Implicits.global
+  import scala.util.control.NonFatal
+  def myFuture[T](b: =>T): Future[T] = {
+    val p = Promise[T]
+    global.execute(new Runnable {
+      def run() = try {
+        p.success(b)
+      } catch {
+        case NonFatal(e) => p.failure(e)
+      }
+    })
+    p.future
+  }
+  val f = myFuture { "naa" + "na" * 8 + " Katamari Damacy!" }
+  f foreach {
+    case text => println(text)
+  }
+}
+
+object FileAlterationMonitor extends App {
+
+  import scala.concurrent.ExecutionContext.Implicits.global
+  import org.apache.commons.io.monitor._
+
+  def fileCreated(directory: String): Future[String] = {
+    val p = Promise[String]
+    val fileMonitor = new FileAlterationMonitor(1000)
+    val observer = new FileAlterationObserver(directory)
+    val listener = new FileAlterationListenerAdaptor {
+      override def onFileCreate(file: File): Unit =
+        try p.trySuccess(file.getName) finally fileMonitor.stop()
+    }
+    observer.addListener(listener)
+    fileMonitor.addObserver(observer)
+    fileMonitor.start()
+    p.future
+  }
+  fileCreated(".") foreach {
+    case filename => println(s"Detected new file '$filename'")
+  }
 }

@@ -4,7 +4,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.duration._
 import scala.concurrent.{Await, Future}
 import scala.language.postfixOps
-import scala.util.{Success, Failure, Random}
+import scala.util.{Failure, Random, Success}
 
 case class CoffeeBeans(brand: String)
 
@@ -20,7 +20,7 @@ case class FrothedMilk(foam: String)
 
 case class Espresso(roast: String)
 
-case class Cappuccino(espresso:Espresso, foam: FrothedMilk )
+case class Cappuccino(espresso: Espresso, foam: FrothedMilk)
 
 object CoffeeImplicits {
 
@@ -36,7 +36,7 @@ object CoffeeImplicits {
 
   implicit def toWater(t: Int) = Water(t)
 
-  implicit def combine(espresso: Espresso, frothedMilk: FrothedMilk) = Cappuccino(espresso,frothedMilk)
+  implicit def combine(espresso: Espresso, frothedMilk: FrothedMilk) = Cappuccino(espresso, frothedMilk)
 }
 
 /**
@@ -44,38 +44,56 @@ object CoffeeImplicits {
   */
 object CoffeeShop {
 
-  def grind(beans: CoffeeBeans): Future[GroundCoffee] = Future {
-    println("start grinding...")
-    Thread.sleep(Random.nextInt(2000))
-    import com.bytetrend.sandbox.scala.concurrent.CoffeeImplicits.toCoffeBeans
-    if (toCoffeBeans("baked beans") == beans) throw GrindingException("are you joking?")
-    println("finished grinding...")
-    import com.bytetrend.sandbox.scala.concurrent.CoffeeImplicits.toGroundCoffee
-    s"ground coffee of $beans"
+  def grind(beans: CoffeeBeans): Future[GroundCoffee] = {
+    val f = Future[GroundCoffee] {
+      println("start grinding...")
+      Thread.sleep(Random.nextInt(2000))
+      import com.bytetrend.sandbox.scala.concurrent.CoffeeImplicits.toCoffeBeans
+      if (toCoffeBeans("baked beans") == beans) throw GrindingException("are you joking?")
+      println("finished grinding...")
+      import com.bytetrend.sandbox.scala.concurrent.CoffeeImplicits.toGroundCoffee
+      s"ground coffee of $beans"
+    }
+    f
   }
 
-  def brew(coffee: GroundCoffee, heatedWater: Water): Future[Espresso] = Future {
-    println("happy brewing :)")
-    Thread.sleep(Random.nextInt(2000))
-    println("it's brewed!")
-    import com.bytetrend.sandbox.scala.concurrent.CoffeeImplicits.toEspresso
-    "espresso"
+  def brew(coffee: GroundCoffee, heatedWater: Water): Future[Espresso] = {
+    val f = Future[Espresso] {
+      println("happy brewing :)")
+      Thread.sleep(Random.nextInt(2000))
+      println("it's brewed!")
+      import com.bytetrend.sandbox.scala.concurrent.CoffeeImplicits.toEspresso
+      "espresso"
+    }
+    f
   }
 
 
-  def heatWater(water: Water): Future[Water] = Future {
-    println("heating the water now")
-    Thread.sleep(2000)
-    println("hot, it's hot!")
-    water.copy(temperature = 85)
+  def heatWater(water: Water): Future[Water] = {
+    val f = Future[Water] {
+      println("heating the water now")
+      Thread.sleep(2000)
+      println("hot, it's hot!")
+      water.copy(temperature = 85)
+    }
+    f
   }
 
-  def frothMilk(milk: Milk): Future[FrothedMilk] = Future {
-    println("milk frothing system engaged!")
-    Thread.sleep(Random.nextInt(2000))
-    println("shutting down milk frothing system")
-    import com.bytetrend.sandbox.scala.concurrent.CoffeeImplicits.toFrothedMilk
-    s"frothed $milk"
+  def frothMilk(milk: Milk): Future[FrothedMilk] = {
+    val f = Future[FrothedMilk] {
+      println("milk frothing system engaged!")
+      Thread.sleep(Random.nextInt(2000))
+      println("shutting down milk frothing system")
+
+      import com.bytetrend.sandbox.scala.concurrent.CoffeeImplicits.toFrothedMilk
+
+      s"frothed $milk"
+    }
+    f
+  }
+
+  def temperatureOkay(water: Water): Future[Boolean] = Future {
+    (80 to 85).contains(water.temperature)
   }
 
   /**
@@ -88,9 +106,9 @@ object CoffeeShop {
     * @return
     */
   def prepareCappuccinoSequentially(): Future[Cappuccino] = {
-    import com.bytetrend.sandbox.scala.concurrent.CoffeeImplicits.toMilk
-    import com.bytetrend.sandbox.scala.concurrent.CoffeeImplicits.combine
-    import com.bytetrend.sandbox.scala.concurrent.CoffeeImplicits.toCoffeBeans
+
+    import com.bytetrend.sandbox.scala.concurrent.CoffeeImplicits.{combine, toCoffeBeans, toMilk}
+
     for {
       ground <- grind("arabica beans")
       water <- heatWater(Water(20))
@@ -108,103 +126,77 @@ object CoffeeShop {
     * method in which it is called requires the values coming from two other
     * futures, it is only created inside our for comprehension, i.e. after
     * those futures have completed successfully.
+    *
     * @return
     */
   def prepareCappuccino(): Future[Cappuccino] = {
-    import com.bytetrend.sandbox.scala.concurrent.CoffeeImplicits.toMilk
-    import com.bytetrend.sandbox.scala.concurrent.CoffeeImplicits.combine
-    import com.bytetrend.sandbox.scala.concurrent.CoffeeImplicits.toCoffeBeans
-    val groundCoffee = grind("arabica beans")
-    val heatedWater = heatWater(Water(20))
-    val frothedMilk = frothMilk("milk")
-    for {
+
+    import com.bytetrend.sandbox.scala.concurrent.CoffeeImplicits.{combine, toCoffeBeans, toMilk}
+
+    val groundCoffee: Future[GroundCoffee] = grind("arabica beans")
+    val heatedWater: Future[Water] = heatWater(Water(20))
+    val frothedMilk: Future[FrothedMilk] = frothMilk("milk")
+    val f: Future[Cappuccino] = for {
       ground <- groundCoffee
       water <- heatedWater
       foam <- frothedMilk
       espresso <- brew(ground, water)
     } yield combine(espresso, foam)
+    f
   }
 
 }
 
-object FuturePromiseExample extends App {
+object FutureBasicExample extends App {
 
   import com.bytetrend.sandbox.scala.concurrent.CoffeeShop._
 
-  /**
-    * This would not print unless a wait is added after it.
-    * grind("arabica beans").onSuccess {
-    * case ground => println("okay, got my ground coffee")
-    * }
-    * import com.bytetrend.sandbox.scala.concurrent.CoffeeImplicits.toCoffeBeans
-    * val future = grind("baked beans").map{coffee =>
-    * println(s"okay, got my ground coffee $coffee")
-    * }
-    * Await.ready(future, 2 seconds)
 
-  val waterAt25:Future[Boolean] = heatWater(Water(25)).map { water =>
+  val waterOk: Future[Boolean] = heatWater(Water(25)).map { water =>
     println("we're in the future!")
     (80 to 85).contains(water.temperature)
   }
-   Await.ready(waterAt25, 2 seconds)
- waterAt25.map( x => println(x.toString) )
-
-    import com.bytetrend.sandbox.scala.concurrent.CoffeeImplicits.toCoffeBeans
-    val coffeeResult = grind("baked beans")
-    coffeeResult.onComplete {
-      case Success(ground) => {
-        println(s"got my $ground")
-      }
-      case Failure(ex) => {
-        println("This grinder needs a replacement, seriously!")
-      }
+  waterOk.onComplete {
+    case Success(water) => {
+      println(s"water was heated ")
     }
-    Await.ready(coffeeResult, 3 seconds)
-
-    */
-
-  /*
-    val waterOk: Future[Boolean] = heatWater(Water(25)).map { water =>
-      println("we're in the future!")
-      (80 to 85).contains(water.temperature)
+    case Failure(ex) => {
+      println("No hot tea today!")
     }
-    waterOk.onComplete {
-      case Success(water) => {
-        println(s"water was heated ")
-      }
-      case Failure(ex) => {
-        println("No hot tea today!")
-      }
-    }
-    Await.ready(waterOk,5 seconds)
-    waterOk.map(s => println("mapping result "+s))
-    */
-    def temperatureOkay(water: Water): Future[Boolean] = Future {
-      (80 to 85).contains(water.temperature)
-    }
-/*
-    val nestedFuture: Future[Future[Boolean]] = heatWater(Water(25)).map {
-      water => temperatureOkay(water)
-    }
-    val flatFuture: Future[Boolean] = heatWater(Water(25)).flatMap {
-      water => temperatureOkay(water)
-    }
-    val acceptable: Future[Boolean] = for {
-      heatedWater <- heatWater(Water(25))
-      okay <- temperatureOkay(heatedWater)
-    } yield okay
-
-    Await.ready(acceptable,5 seconds)
-    acceptable.foreach( x => println(x) )
-
-    val cappuccino:Future[Cappuccino] = prepareCappuccinoSequentially()
-    Await.ready(cappuccino,5 seconds)
-    cappuccino.foreach(println)
-*/
-
-    val cappuccino:Future[Cappuccino] = prepareCappuccino()
-    Await.ready(cappuccino,5 seconds)
-    cappuccino.foreach(println)
   }
+  Await.ready(waterOk, 5 seconds)
+  waterOk.map(s => println("mapping result " + s))
+
+}
+
+object FutureSequentially extends App {
+
+  import com.bytetrend.sandbox.scala.concurrent.CoffeeShop._
+
+  val waterOk: Future[Boolean] = heatWater(Water(25)).map { water =>
+    println("we're in the future!")
+    (80 to 85).contains(water.temperature)
+  }
+  waterOk.onComplete {
+    case Success(water) => {
+      println(s"water was heated ")
+    }
+    case Failure(ex) => {
+      println("No hot tea today!")
+    }
+  }
+  Await.ready(waterOk, 5 seconds)
+  waterOk.map(s => println("mapping result " + s))
+}
+
+object FutureInParallel extends App {
+
+  import com.bytetrend.sandbox.scala.concurrent.CoffeeShop._
+
+
+  val cappuccino: Future[Cappuccino] = prepareCappuccino()
+  Await.ready(cappuccino, 5 seconds)
+  cappuccino.foreach(println)
+}
 
 
