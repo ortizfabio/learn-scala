@@ -7,7 +7,7 @@ import scala.concurrent.Future
 
 trait ComposingFutures[T] {
 
-
+/*
  def retryRight(noTimes: Int)(block: => Future[T]):Future[T] ={
    val ns:List[Int] = (1 to noTimes).toList
    val attempts:List[() => Future[T]] = ns.map(_ => () => block)
@@ -26,5 +26,5 @@ trait ComposingFutures[T] {
    ((a:List[()=>Future[T]],block:Future[T]) => a recoverWith {block()})
    result()
  }
-
+*/
 }

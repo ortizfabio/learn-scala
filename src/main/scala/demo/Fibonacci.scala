@@ -3,7 +3,7 @@ package demo
 import scala.annotation.tailrec
 
 
-object Test2{
+object Fibonacci{
 
   def fibonacci(n:Int):Int={
     @tailrec

@@ -23,7 +23,7 @@ package demo
   * Elements of input arrays can be modified
   *
   */
-object Test3 {
+object ScalaSorting {
 
 
   def main(args: Array[String]): Unit = {
