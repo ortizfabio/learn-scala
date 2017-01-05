@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema elementFormDefault='qualified' targetNamespace='http://com.elasticpath/repo/common' version='1.0'
+           xmlns:tns="http://com.elasticpath/repo/common" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" jaxb:version="2.1"
+           xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc" jaxb:extensionBindingPrefixes="xjc"
+>
+
+  <!-- Date bindings - default binding converts to java.util.Date -->
+  <xs:annotation>
+    <xs:appinfo>
+      <jaxb:globalBindings>
+        <jaxb:javaType name="java.util.Date" xmlType="xs:dateTime"
+                       parseMethod="com.elasticpath.repo.common.xml.binding.util.BindingUtils.parseDateTime"
+                       printMethod="com.elasticpath.repo.common.xml.binding.util.BindingUtils.printDateTime"/>
+        <jaxb:javaType name="java.util.Date" xmlType="xs:date"
+                       parseMethod="com.elasticpath.repo.common.xml.binding.util.BindingUtils.parseDate"
+                       printMethod="com.elasticpath.repo.common.xml.binding.util.BindingUtils.printDate"/>
+        <xjc:simple/>
+      </jaxb:globalBindings>
+    </xs:appinfo>
+  </xs:annotation>
+
+  <xs:complexType name='Customer'>
+    <xs:sequence>
+      <!-- Customer id could be user_id, guid or some alternate external id.  -->
+      <xs:element name='guestId' type='xs:string'>
+        <xs:annotation>
+          <xs:documentation xml:lang='en'>The immutable user identifier.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <!--<xs:element name='guestUserName' type='xs:string'/>-->
+      <!--<xs:element minOccurs='0' name='firstName' type='xs:string'/>-->
+      <!--&lt;!&ndash; maxlength 255 &ndash;&gt;-->
+      <!--<xs:element minOccurs='0' name='lastName' type='xs:string'/>-->
+      <!--&lt;!&ndash; maxlength 255 &ndash;&gt;-->
+      <!--<xs:element minOccurs='0' name='email' type='xs:string'/>-->
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name='Address'>
+    <xs:sequence>
+      <xs:element name='addressId' type='xs:string'/>
+      <xs:element name='addressType' type='tns:AddressType'/>
+      <!-- maxlength 100 -->
+      <xs:element name='firstName' type='xs:string'/>
+      <!-- maxlength 100 -->
+      <xs:element name='lastName' type='xs:string'/>
+      <!-- maxlength 255 -->
+      <xs:element minOccurs='0' name='organization' type='xs:string'/>
+      <!-- maxlength 200 -->
+      <xs:element name='street1' type='xs:string'/>
+      <!-- maxlength 200 -->
+      <xs:element minOccurs='0' name='Street2' type='xs:string'/>
+      <!-- maxlength 200 -->
+      <xs:element name='city' type='xs:string'/>
+      <!-- maxlength 200 -->
+      <xs:element minOccurs='0' name='region' type='xs:string'>
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Represents a State, a Province, a County, or any other region within a country, if appropriate.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name='country' type='xs:string'>
+        <xs:annotation>
+          <xs:documentation xml:lang="en">The two-letter ISO country code of the country in which this address resides.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <!-- maxlength 50 -->
+      <xs:element minOccurs='0' name='zipPostalCode' type='xs:string'/>
+      <!-- maxlength 50 -->
+      <xs:element minOccurs='0' name='phoneNumber' type='xs:string'/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="KeyValuePair">
+    <xs:sequence>
+      <!-- maxlength 100 -->
+      <xs:element name='key' type='xs:string'/>
+      <!-- maxlength 255 -->
+      <xs:element name='value' type='xs:string'/>
+      <!-- maxlength 255 -->
+      <xs:element name='displayValue' minOccurs="0" type='xs:string'/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- This type is still a little shaky - we don't really store discount amounts properly and in the case of shipment discounts not at all,
+  but the requirement to report discounts is definitely legitimate. -->
+  <xs:complexType name='DiscountLine'>
+    <xs:sequence>
+      <xs:element minOccurs='0' name='discountCode' type='xs:string'/>
+      <xs:element minOccurs='0' name='discountType' type='tns:DiscountType'/>
+      <xs:element minOccurs='0' name='discountValue' type='tns:Money'/>
+      <xs:element minOccurs='0' name='discountAmount' type='tns:Money'/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- This type is dependent on the recently developed tax calculation framework. -->
+  <xs:complexType name='TaxLine'>
+    <xs:sequence>
+      <xs:element name='jurisdictionId' type='xs:string'/>
+      <xs:element name='taxRegionId' type='xs:string'/>
+      <xs:element name='taxIsInclusive' type='xs:boolean'/>
+      <xs:element name='taxName' type='xs:string'/>
+      <xs:element name='taxCode' type='xs:string'/>
+      <xs:element name='taxAmount' type='tns:Money'/>
+      <xs:element minOccurs='0' name='taxRate' type='tns:TaxRate'/>
+      <xs:element minOccurs='0' name='taxCalculationDate' type='xs:dateTime'/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name='TaxRate'>
+    <xs:annotation>
+      <xs:documentation xml:lang="en">The tax rate, defined up to ten decimal places.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base='xs:decimal'>
+      <xs:fractionDigits value='10'/>
+      <xs:minInclusive value='0'/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name='Money'>
+    <xs:annotation>
+      <xs:documentation xml:lang="en">A monetary amount, defined to three decimal places to accommodate currencies such as dinar and rial.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction
+            base='xs:decimal'>
+      <xs:fractionDigits value='3'/>
+      <xs:minInclusive value='0'/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name='DiscountType'>
+    <xs:restriction base='xs:string'>
+      <xs:enumeration value='AMOUNT'/>
+      <xs:enumeration value='PERCENT'/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name='MonthNumeric'>
+    <xs:annotation>
+      <xs:documentation xml:lang="en">The sequential ID for a Gregorian calendar month, starting with 1 for January.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:int">
+      <xs:minInclusive value="1"/>
+      <xs:maxInclusive value="12"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name='AddressType'>
+    <xs:restriction base='xs:string'>
+      <xs:enumeration value='BILLING'/>
+      <xs:enumeration value='SHIPPING'/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name='TimeUnit'>
+    <xs:restriction base='xs:string'>
+      <xs:enumeration value='YEARS'/>
+      <xs:enumeration value='MONTHS'/>
+      <xs:enumeration value='DAYS'/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name='LocalisedValue'>
+    <xs:annotation>
+      <xs:documentation xml:lang='en'>A localised, human-readable value.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base='xs:string'>
+        <xs:attribute name='language' type='xs:string'/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+</xs:schema>

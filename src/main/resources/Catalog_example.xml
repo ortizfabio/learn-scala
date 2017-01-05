@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Catalog xmlns="http://com.elasticpath/repo/catalog">
+    <Code>ocean_mc</Code>
+    <Products>
+        <Product>
+            <Code>ocean_excursions_saltydog</Code>
+            <Name>
+                <Value>This is Salty Dog Excursion</Value>
+            </Name>
+            <Type>Dining</Type>
+            <BrandCode>Ocean</BrandCode>
+            <TaxCode>NONE</TaxCode>
+            <Availability>
+                <AvailabilityRule>ALWAYS_AVAILABLE</AvailabilityRule>
+                <Displayable>true</Displayable>
+                <EnableDateTime>2016-01-01T14:47:00-06:00</EnableDateTime>
+                <DisableDateTime>2018-01-01T14:47:00-06:00</DisableDateTime>
+            </Availability>
+            <Attributes>
+                <Attribute key="description">
+                    <value>A warm, inviting gastropub developed in collaboration with Ernesto Uchimura, a founding chef of the original Umami Burger. Try one of our innovative gourmet creations inspired by pub favorites or devour &lt;a href="http://www.princess.com/ships-and-experience/food-and-dining/specialty-restaurants/the-salty-dog-gastropub/photo-gallery/the-ernesto-burger-index.html"&gt;The "Ernesto,"&lt;/a&gt; a savory ribeye burger crafted exclusively for Princess by Chef Uchimura. Offering a unique variety of beer, whiskey and cocktail selections, there’s something for everyone to enjoy.</value>
+                </Attribute>
+                <Attribute key="mainImage">
+                    <value>http://www.princess.com/images/ships-and-experience/food-and-dining/speciality-dining/the-salty-dog/salty-dog-whats-new.jpg</value>
+                </Attribute>
+            </Attributes>
+            <Categories>
+                <Category>
+                    <Catalog>ocean_mc</Catalog>
+                    <Code>dining</Code>
+                    <DisplayName>Meal</DisplayName>
+                </Category>
+                <Category>
+                    <Catalog>ocean_vc</Catalog>
+                    <Code>dining</Code>
+                    <DisplayName>Meal</DisplayName>
+                </Category>
+            </Categories>
+            <Associations>
+                <Association key="ACCESSORY" />
+            </Associations>
+            <Skus>
+                <Sku>
+                    <Code>ocean_excursions_saltydog_adult</Code>
+                    <EnableDateTime>2016-01-01T14:47:00-06:00</EnableDateTime>
+                    <DisableDateTime>2018-01-01T14:47:00-06:00</DisableDateTime>
+                    <Attributes/>
+                    <BasePrice>
+                        <Quantity>1</Quantity>
+                        <ListPrice>19.00</ListPrice>
+                        <Currency>USD</Currency>
+                    </BasePrice>
+                </Sku>
+                <Sku>
+                    <Code>ocean_excursions_saltydog_child</Code>
+                    <EnableDateTime>2016-01-01T14:47:00-06:00</EnableDateTime>
+                    <DisableDateTime>2018-01-01T14:47:00-06:00</DisableDateTime>
+                    <Attributes/>
+                    <BasePrice>
+                        <Quantity>1</Quantity>
+                        <ListPrice>9.50</ListPrice>
+                        <Currency>USD</Currency>
+                    </BasePrice>
+                </Sku>
+            </Skus>
+        </Product>
+    </Products>
+</Catalog>

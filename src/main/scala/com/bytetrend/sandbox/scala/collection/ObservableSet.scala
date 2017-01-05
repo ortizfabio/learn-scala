@@ -1,8 +1,13 @@
 package com.bytetrend.sandbox.scala.collection
 
-/*
-abstract class ObservableSet[E](s: Set[E]) extends ForwardingSet[E](s) {
+import java.util.{Collection, Set}
 
+import scala.reflect.ClassTag
+
+/**
+ * Created by db2admin on 5/13/2016.
+ */
+class ObservableSet[E](s: Set[E]) extends ForwardingSet[E](s) {
   import java.util.List
   import java.util.concurrent.CopyOnWriteArrayList
 
@@ -17,10 +22,10 @@ abstract class ObservableSet[E](s: Set[E]) extends ForwardingSet[E](s) {
     observers.foreach { x => observers.remove(x); }
   }
 
-  private def notifyElementAdded(element: E): Unit = {
+  private def notifyElementAdded(element: E): Unit =  {
     import scala.collection.JavaConversions._
     for (observer <- observers)
-      observer.added(this, element)
+    observer.added(this, element)
   }
 
   //
@@ -57,5 +62,18 @@ abstract class ObservableSet[E](s: Set[E]) extends ForwardingSet[E](s) {
     result
   }
 
+  /**
+    * https://www.chrisstucchio.com/blog/2014/cannot_find_classtag_for_element_type_T.html
+    * new Array[T] needs ClassTag implicit
+    *
+    * @param a
+    * @param m
+    * @tparam T
+    * @return
+    */
+   def toArray[T](a: Array[T])(implicit m: ClassTag[T]): Array[T] = {
+    val b =  new Array[T](a.length)
+    a copyToArray b
+    b
+  }
 }
-*/
