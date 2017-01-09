@@ -2,9 +2,7 @@ package com.bytetrend.sandbox.java.sort;
 
 import java.util.Arrays;
 
-/**
- * Created by db2admin on 5/23/2016.
- */
+
 public class QuickSort {
     static int[] arrInt = new int[]{5, 9, 0, 2, 4, 8, 7, 7, 3};
 

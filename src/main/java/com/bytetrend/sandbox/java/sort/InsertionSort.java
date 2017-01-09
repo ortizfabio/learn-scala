@@ -18,10 +18,11 @@ public class InsertionSort {
     }
 
     static public void sort(int[] arr) {
-        Arrays.toString(arr);
+        System.out.println("0) "+Arrays.toString(arr));
         for (int i = 1; i < arr.length; i++) {
             int j = i;
             while (j > 0 && arr[j-1] > arr[j]) {
+                System.out.print(i+") ");
                 swap(arr, j-1, j);
                 j--;
             }

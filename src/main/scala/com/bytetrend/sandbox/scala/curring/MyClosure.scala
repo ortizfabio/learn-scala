@@ -1,4 +1,4 @@
-package com.bytetrend.sandbox.scala
+package com.bytetrend.sandbox.scala.curring
 
 object MyClosure {
 

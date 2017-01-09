@@ -3,9 +3,7 @@ package com.bytetrend.sandbox.java.sort;
 import java.util.Arrays;
 import java.util.stream.IntStream;
 
-/**
- * Created by db2admin on 6/3/2016.
- */
+
 public class MergeTwoArraysAndSort {
     static void swap(int[] array,int i,int j){
         int temp = array[i]; array[i] = array[j];array[j]= temp;

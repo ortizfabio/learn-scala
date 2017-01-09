@@ -3,7 +3,7 @@ package com.bytetrend.sandbox.scala.sort
 /**
   * Created by db2admin on 6/13/2016.
   */
-object InsertionSort {
+class InsertionSort {
   def insertionSort(a: Array[Char]): Unit = {
     def swap(i: Int, j: Int):Unit = {
       var t:Char = a(i)
@@ -21,7 +21,7 @@ object InsertionSort {
     }
   }
 
-   def main(args: Array[String]): Unit = {
+  def main(args: Array[String]): Unit = {
      //F G H E A D C B
      val test : Array[Char] = Array('B','C','D','A','E','H','G','F').reverse
      println(test.mkString(" "))

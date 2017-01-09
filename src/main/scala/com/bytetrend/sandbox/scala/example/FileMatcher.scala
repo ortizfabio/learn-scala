@@ -1,9 +1,7 @@
 package com.bytetrend.sandbox.scala.example
 
-/**
- * Created by db2admin on 5/18/2016.
- */
-object FileMatcher {
+
+object FileMatcher extends App{
   private def filesHere = (new java.io.File(".")).listFiles
   private def filesMatching(matcher: String => Boolean) =
     for (file <- filesHere; if matcher(file.getName))
