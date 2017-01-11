@@ -2,9 +2,7 @@ package com.bytetrend.sandbox.java.sort;
 
 import java.util.Arrays;
 
-/**
- * Created by db2admin on 5/23/2016.
- */
+
 public class InsertionSort {
 
     static final int[] arrayInt = new int[]{7, 7, 4, 0, 2, 1};

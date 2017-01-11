@@ -19,8 +19,8 @@ public class QuickSort {
         int i = lo;
         int j = hi;
         int pivot = arr[lo + (hi-lo)/2];
+        System.out.println("pivot="+pivot+" i="+i+" j="+j);
         while( i <= j){
-            System.out.println("pivot="+pivot+" i="+i+" j="+j);
             while(arr[i] < pivot) i++;
             while(arr[j] > pivot) j--;
             if (i <= j) {
