@@ -6,29 +6,35 @@ import scala.collection.mutable
 import scala.reflect.ClassTag
 
 /**
-  * Created by db2admin on 6/6/2016.
+  * http://www.geeksforgeeks.org/dynamic-programming-set-7-coin-change/
   */
 object CoinChange {
 
   var counter = 0;
 
+  // Returns the count of ways we can sum  arr[0...coinTypeIndex-1] coins to get sum n
   def findChange(arr: Array[Int], coinTypeIndex: Int, amount: Int, str: String): Int = {
     counter = counter + 1
     println(counter + " " + coinTypeIndex +
       (if (coinTypeIndex > -1) " coin [" + arr(coinTypeIndex) + "]" else "")
       + " a=" + amount + " " + str)
+
     if (amount == 0) {
+      // If amount is 0 then there is 1 solution (do not include any coin)
       1
     } else if (coinTypeIndex < 0) {
+      // If there are no coins and n is greater than 0, then no solution exist
       0
     } else if (amount < 0) {
+      // If amount is less than 0 then no solution exists
       0
-    } else {
-      val excl = findChange(arr, coinTypeIndex - 1, amount, str)
-      val incl = findChange(arr, coinTypeIndex, amount - arr(coinTypeIndex), str + " " + arr(coinTypeIndex))
-      println(s"$counter incl=$incl excl=$excl ")
-      incl + excl
     }
+    // count is sum of solutions (i) including S[coinTypeIndex-1] (ii) excluding S[coinTypeIndex-1]
+    val excl = findChange(arr, coinTypeIndex - 1, amount, str)
+    val incl = findChange(arr, coinTypeIndex, amount - arr(coinTypeIndex), str + " " + arr(coinTypeIndex))
+    println(s"$counter incl=$incl excl=$excl ")
+    incl + excl
+
   }
 
   object Coin extends Enumeration {
@@ -118,9 +124,9 @@ object CoinChange {
   //    println(prod(l2, l1.size).map(l1.zip(_)).mkString(" "))
   //
   def main(args: Array[String]): Unit = {
-//    val arr = Array(1, 5, 10, 25)
- //   println(s"$counter result is " + findChange(arr, arr.length - 1, 16, " "))
-    println("count is "+findChange4(16).length)
+    //    val arr = Array(1, 5, 10, 25)
+    //   println(s"$counter result is " + findChange(arr, arr.length - 1, 16, " "))
+    println("count is " + findChange4(16).length)
     // println("count is " + findChange3(16).length)
     // println("count is " + findChange2(16).length)
   }

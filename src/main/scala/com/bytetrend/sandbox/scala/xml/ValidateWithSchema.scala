@@ -10,10 +10,9 @@ import javax.xml.XMLConstants
 import javax.xml.parsers.SAXParserFactory
 import javax.xml.transform.Source
 import javax.xml.transform.stream.StreamSource
-import javax.xml.validation.SchemaFactory
+import javax.xml.validation.{Schema, SchemaFactory}
 
 import org.xml.sax.SAXParseException
-import org.xml.sax.helpers.DefaultHandler
 
 import scala.util.Try
 import scala.xml.factory.XMLLoader
@@ -21,7 +20,7 @@ import scala.xml.parsing.{FactoryAdapter, NoBindingFactoryAdapter}
 import scala.xml.{Elem, SAXParser}
 
 object ValidateWithSchema extends App {
-  val schema = {
+  val schema:Schema = {
     val factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI)
     val xsdCatalogStream = new FileInputStream("./src/main/resources/Catalog_Import.xsd")
     val xsdCommonStream = new FileInputStream("./src/main/resources/common.xsd")
@@ -32,7 +31,7 @@ object ValidateWithSchema extends App {
     schema
   }
 
-  val saxParser = {
+  val saxParser:SAXParser = {
     val f = SAXParserFactory.newInstance()
     f.setNamespaceAware(true)
     f.setSchema(schema)
