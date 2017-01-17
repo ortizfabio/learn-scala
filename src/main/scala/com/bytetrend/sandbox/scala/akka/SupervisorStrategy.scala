@@ -1,12 +1,13 @@
-package com.bytetrend.sandbox.scala.com.bytetrend.akka
+package com.bytetrend.sandbox.scala.akka
 
-import akka.actor._
 import akka.actor.SupervisorStrategy._
-import scala.concurrent.duration._
-import akka.util.Timeout
+import akka.actor._
 import akka.event.LoggingReceive
-import akka.pattern.{ ask, pipe }
+import akka.pattern.{ask, pipe}
+import akka.util.Timeout
 import com.typesafe.config.ConfigFactory
+
+import scala.concurrent.duration._
 
 /**
   * Runs the sample
@@ -67,8 +68,8 @@ object Worker {
   * of current ``Progress``. The `Worker` supervise the `CounterService`.
   */
 class Worker extends Actor with ActorLogging {
-  import Worker._
   import CounterService._
+  import Worker._
   implicit val askTimeout = Timeout(5 seconds)
 
   // Stop the CounterService child if it throws ServiceUnavailable
@@ -116,8 +117,8 @@ object CounterService {
   * `CounterService` supervise `Storage` and `Counter`.
   */
 class CounterService extends Actor {
-  import CounterService._
   import Counter._
+  import CounterService._
   import Storage._
 
   // Restart the storage child when StorageException is thrown.
