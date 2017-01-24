@@ -1,12 +1,15 @@
 package com.bytetrend.sandbox.scala.concurrent
 
 import java.io.File
+import java.util.Properties
 
-import scala.concurrent.{Await, Promise, Future}
-import scala.util.{Success, Failure}
+import scala.concurrent.{Await, Future, Promise}
+import scala.util.{Failure, Success}
 import scala.concurrent.duration._
-
 import java.util.concurrent.Executors
+
+import org.apache.kafka.clients.producer.{Callback, KafkaProducer, ProducerRecord, RecordMetadata}
+
 import concurrent.ExecutionContext
 
 object Government extends App{
@@ -88,5 +91,30 @@ object FileAlterationMonitor extends App {
   }
   fileCreated(".") foreach {
     case filename => println(s"Detected new file '$filename'")
+  }
+}
+
+object KafkaPromiseDemo {
+  val producer: KafkaProducer[String,RecordMetadata] = new KafkaProducer[String,RecordMetadata](new Properties())
+
+  /**
+    * Creates a Promise of the expected result type, RecordMetadata
+    * @param record
+    * @return
+    */
+  def sendToKafka(record: ProducerRecord[String,RecordMetadata]): Future[RecordMetadata] = {
+    val promise: Promise[RecordMetadata] = Promise[RecordMetadata]()
+    //Gets a reference to the Future[RecordMetadata] that we can pass on
+    val future: Future[RecordMetadata] = promise.future
+    //This is the Kafka callback that’s used to indicate that sending has completed. It’s
+    // called once after sending the record has completed on another thread.
+    val callback = new Callback() {
+      def onCompletion(metadata: RecordMetadata, e: Exception): Unit = {
+        if (e != null) promise.failure(e) //Writes a failure to the promise if there’s an error
+        else promise.success(metadata) //Writes a success to the promise otherwise
+      }
+    }
+    producer.send(record, callback)
+    future   //Returns the future to the user of the sendToKafka method
   }
 }

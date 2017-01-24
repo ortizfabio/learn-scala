@@ -17,7 +17,7 @@ package demo
   * *
   * Complexity:
   * *
-  * •         Worst-case time complexity is O
+  *         Worst-case time complexity is O
   * •         Worst-case space complexity is O
   * , beyond input storage (not counting the storage required for input arguments).
   * Elements of input arrays can be modified

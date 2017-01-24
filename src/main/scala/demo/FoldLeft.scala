@@ -1,8 +1,6 @@
 package demo
 
-/**
-  * Created by db2admin on 6/10/2016.
-  */
+
 object FoldLeft {
 
   def countLines(file: String): Int ={

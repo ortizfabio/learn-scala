@@ -2,7 +2,18 @@ package com.bytetrend.sandbox.scala.hackerrank
 
 
 /**
-  * Created by db2admin on 1/9/2017.
+  * https://www.hackerrank.com/challenges/circular-array-rotation
+  * Sample Input
+  * 3 2 3
+  * 1 2 3
+  * 0
+  * 1
+  * 2
+  *
+  * Sample Output
+  * 2
+  * 3
+  * 1
   */
 object CircularArrayRotation {
 
