@@ -13,9 +13,7 @@ import com.bytetrend.sandbox.scala.concurrent.pnorm._
 import org.scalacheck.util.Buildable
 
 import scala.collection.mutable
-/**
-  * Created by jose.ortiz on 12/31/16.
-  */
+
 object PnormChecker extends Properties("p-norm") {
 
 
