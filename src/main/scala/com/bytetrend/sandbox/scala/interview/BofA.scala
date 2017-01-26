@@ -1,5 +1,4 @@
-package com.bytetrend.sandbox.scala.example
-
+package com.bytetrend.sandbox.scala.interview
 
 object BofA {
 

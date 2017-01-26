@@ -1,4 +1,4 @@
-package com.bytetrend.sandbox.scala.example
+package com.bytetrend.sandbox.scala.interview
 
 object Bloomberg extends App {
   // This is the text editor interface.
@@ -36,8 +36,6 @@ object Bloomberg2 extends App {
   // To execute Scala, Do not remove the object named Solution that extends App.
 
   // Print the counts of consecutive letter sequences in a string. (Ex: "aaaabbbbbcdd" -> "4 a, 5 b, 1 c, 2 d" or "aaaabbbbbcddaaabb" -> "4 a, 5 b, 1 c, 2 d, 3 a, 2 b")
-
-  import collection.mutable.ArrayBuffer
 
   def process(input: String): Unit = {
 

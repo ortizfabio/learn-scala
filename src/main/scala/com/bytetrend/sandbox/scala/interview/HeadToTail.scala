@@ -1,24 +1,26 @@
-package com.bytetrend.sandbox.scala.example
+package com.bytetrend.sandbox.scala.interview
 
 import scala.collection.mutable.ListBuffer
 
 /**
-  * Input
-  * 3
-  * 2
-  * acm
-  * ibm
-  * 3
-  * acm
-  * malform
-  * mouse
-  * 2
-  * ok
-  * ok
   *
   */
 object HeadToTail extends App {
+/*
+Input
+3
+2
+acm
+ibm
+3
+acm
+malform
+mouse
+2
+ok
+ok
 
+ */
 
   def solution(args: Array[String]) {
     //Enter your code here. Read input from STDIN. Print output to STDOUT
