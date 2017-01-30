@@ -109,7 +109,10 @@ object CoinChange {
         }
       }
     }
-    println(result.map(_.mkString(",")).mkString("\n"))
+    println(
+      result.map(_.mkString(","))
+        .mkString("\n")
+    )
     result
   }
 
@@ -126,9 +129,9 @@ object CoinChange {
   def main(args: Array[String]): Unit = {
     //    val arr = Array(1, 5, 10, 25)
     //   println(s"$counter result is " + findChange(arr, arr.length - 1, 16, " "))
-    println("count is " + findChange4(16).length)
+    //println("count is " + findChange4(16).length)
     // println("count is " + findChange3(16).length)
-    // println("count is " + findChange2(16).length)
+     println("count is " + findChange2(16).length)
   }
 
   def className[T](v: T)(implicit ev: ClassTag[T]) = ev.toString
