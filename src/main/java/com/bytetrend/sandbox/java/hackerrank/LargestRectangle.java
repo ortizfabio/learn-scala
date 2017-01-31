@@ -8,13 +8,12 @@ import java.util.Stack;
  */
 public class LargestRectangle {
 
-   static public int largestRectangleArea(int[] height) {
+    static public int largestRectangleArea(int[] height) {
         if (height == null || height.length == 0) {
             return 0;
         }
 
         Stack<Integer> stack = new Stack<Integer>();
-
         int max = 0;
         int i = 0;
 
@@ -30,7 +29,6 @@ public class LargestRectangle {
                 int w = stack.isEmpty() ? i : i - stack.peek() - 1;
                 max = Math.max(h * w, max);
             }
-
         }
 
         while (!stack.isEmpty()) {
@@ -44,24 +42,30 @@ public class LargestRectangle {
     }
 
     public static int largestRectangleArea2(int[] hist) {
-        Stack<Integer> pStack = new Stack<>(), hStack = new Stack<>();
-        int insertPos, cHeight, potMax, maxA = 0;
+        Stack<Integer> posStk = new Stack<>();
+        Stack<Integer> hghtStk = new Stack<>();
+        int insertPos = 0;
+        int cHeight = 0;
+        int potMax =0;
+        int maxA = 0;
 
-        for (int i = 0; (insertPos = i) <= hist.length; i++) {
-            cHeight = (i != hist.length) ?  hist[i] : 0;
+        for (int i = 0; i <= hist.length; i++) {
+            insertPos = i;
+            cHeight = (i != hist.length) ? hist[i] : 0;
 
-            while (!pStack.isEmpty() && hStack.peek() > cHeight)
-                if ((potMax = (i - (insertPos = pStack.pop())) * hStack.pop()) >= maxA)
-                    maxA = potMax;
-
-            if (hStack.isEmpty() || hStack.peek() != cHeight) {
-                pStack.push(insertPos);
-                hStack.push(cHeight);
+            while (!posStk.isEmpty() && hghtStk.peek() > cHeight) {
+                insertPos = posStk.pop();
+                potMax = (i - insertPos) * hghtStk.pop();
+                maxA = Math.max(maxA,potMax);
+            }
+            if (hghtStk.isEmpty() || hghtStk.peek() != cHeight) {
+                posStk.push(insertPos);
+                hghtStk.push(cHeight);
             }
         }
         return maxA;
     }
-    
+
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         int n = in.nextInt();

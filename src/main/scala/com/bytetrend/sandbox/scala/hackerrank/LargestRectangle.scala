@@ -14,13 +14,17 @@ object LargestRectangle {
 
   def calc(stack: Stack[PositionHeight], index: Int, thisHeight: Int): Int = {
     var area = 0
+    //Keeps track of the last position processed.
+    var insertPos = index
     while (!stack.isEmpty && stack.top.height > thisHeight) {
       val item = stack.pop()
-      area = Math.max(area,(index - item.position) * item.height)
+      insertPos = item.position
+      val potArea = (index - insertPos) * item.height
+      area = Math.max(area,potArea)
     }
 
-    if (stack.isEmpty || (stack.top.height != thisHeight && thisHeight > 0))
-      stack.push(PositionHeight(index, index))
+    if (stack.isEmpty || (stack.top.height != thisHeight ))
+      stack.push(PositionHeight(insertPos, thisHeight))
     area
   }
 
