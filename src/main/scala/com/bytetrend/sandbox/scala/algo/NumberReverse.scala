@@ -13,6 +13,11 @@ object NumberReverse {
 	}
 
 	 def main(args: Array[String]): Unit = {
-    	println(reverseNumber(Integer.valueOf(args(0))))
+		 val in = new java.util.Scanner(System.in)
+		 System.out.println("Enter a number:")
+		 // number
+		 val number = in.nextInt
+
+		 println(reverseNumber(number))
   	}
 }

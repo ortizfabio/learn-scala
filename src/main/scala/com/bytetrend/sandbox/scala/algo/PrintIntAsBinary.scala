@@ -1,11 +1,11 @@
 package com.bytetrend.sandbox.scala.algo
 
+import scala.annotation.tailrec
 import scala.io.StdIn.readInt
-/**
-  * Created by db2admin on 6/6/2016.
-  */
-object ReverseIntBits {
 
+
+object PrintIntAsBinary {
+  @tailrec
   def toBinary(i : Int, seq: List[Int] = List.empty[Int]): String ={
     if(i == 0) {
       if (seq.isEmpty)
@@ -20,4 +20,5 @@ object ReverseIntBits {
     val x = readInt()
     println("In binary notation: "+toBinary(x))
   }
+
 }

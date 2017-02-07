@@ -4,6 +4,7 @@ import scala.annotation.tailrec
 
 
 object MapImplementation {
+
   import collection.mutable.ListBuffer
 
   /**
@@ -12,7 +13,7 @@ object MapImplementation {
     * by applying function f
     *
     * @param list original list
-    * @param f  function to be applied.
+    * @param f    function to be applied.
     * @tparam A type of elements in original list
     * @tparam B type of elements in resulting list.
     * @return list of elements of type B
@@ -32,16 +33,19 @@ object MapImplementation {
   }
 
   /**
-    * Non recursive version of map
+    * recursive version of map
+    *
     * @param list original list
-    * @param f  function to be applied.
+    * @param f    function to be applied.
     * @tparam A type of elements in original list
     * @tparam B type of elements in resulting list.
     * @return list of elements of type B
     */
-  def map2[A,B](list: List[A], f: A => B): List[B] = {
-    val temp = ListBuffer[B]()
-    list.foreach(x => temp += f(x))
-    temp.toList
+  def map2[A, B](list: List[A], f: A => B): List[B] = {
+    list match {
+      case Nil => Nil
+      case head :: tail => f(head) :: map2(tail,f)
+    }
+
   }
 }

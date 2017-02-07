@@ -26,7 +26,7 @@ object Bloomberg extends App {
     println(list.map(x => s"${x._2} ${x._1}").mkString(", "))
   }
 
-  process("aaaabbbbbcdd")
+  process("aaaabbbbbcddaaabb")
 }
 
 object Bloomberg2 extends App {

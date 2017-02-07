@@ -1,10 +1,29 @@
 package com.bytetrend.sandbox.scala.hackerrank
 
 /**
-  * https://www.hackerrank.com/challenges/sherlock-and-array?h_r=next-challenge&h_v=zen
+  * https://www.hackerrank.com/challenges/sherlock-and-array
+  *
+  * Watson gives Sherlock an array A of length n. Then he asks him to determine
+  * if there exists an element in the array such that the sum of the elements
+  * on its left is equal to the sum of the elements on its right. If there are
+  * no elements to the left/right, then the sum is considered to be zero.
+  * Formally, find an i, such that, A0 + A1 + ... + Ai-1 = Ai+1 + Ai+2+...+ An-1.
+  *
+  * For each test case print YES if there exists an element in the array, such
+  * that the sum of the elements on its left is equal to the sum of the elements
+  * on its right; otherwise print NO.
   */
 object SherlockAndArray {
 
+  /**
+    * The number in the middle should be such that multiplying the sum of the numbers
+    * before by 2 and adding such number should be equal to the sum of all the numbers.
+    *
+    * We don't need to iterate over then whole array just up to the number we are looking for.
+    *
+    * @param a
+    * @return
+    */
   def calculate(a: Seq[Int]): Option[Int] = {
     val sum = a.reduce(_ + _)
     var currentSum = 0

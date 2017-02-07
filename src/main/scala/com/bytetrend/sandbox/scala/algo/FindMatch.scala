@@ -1,8 +1,6 @@
 package com.bytetrend.sandbox.scala.algo
 
-/**
-  * Created by db2admin on 6/13/2016.
-  */
+
 object FindMatch extends App{
 
   /**
@@ -14,15 +12,15 @@ object FindMatch extends App{
     * @return
     */
   def findmatch(pattern:Array[Char], text:Array[Char]): Int ={
-    var (i,j) = (0,0)
-    //t is the  length of the patter and m the length of the text.
-    val (pm,tn) = (pattern.length,text.length)
-    for(i <- 0 to (tn-pm)){
-      var j = 0
-      while(j<pm && text(i+j)==pattern(j))
-        j = j + 1
+    var (ptrnIndex,textIndex) = (0,0)
+    //pm is the  length of the pattern and tm the length of the text.
+    val (ptrnLen,textLen) = (pattern.length,text.length)
+    for(txtIndex <- 0 to (textLen-ptrnLen)){
+      var ptrnIndex = 0
+      while(ptrnIndex<ptrnLen && text(txtIndex+ptrnIndex)==pattern(ptrnIndex))
+        ptrnIndex = ptrnIndex + 1
     }
-      if(j == pm) return i
+      if(textLen == ptrnLen) return ptrnIndex
     -1
   }
 

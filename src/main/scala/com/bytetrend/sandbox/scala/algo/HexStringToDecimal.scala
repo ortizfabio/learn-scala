@@ -1,6 +1,8 @@
 package com.bytetrend.sandbox.scala.algo
 
-
+/**
+  * Print sum of  hexadecimal number 's digits
+  */
 object HexDecimalSolution extends App {
   /*
     7E0 => 2016
@@ -33,15 +35,18 @@ object HexDecimalSolution extends App {
         case 'F' => 15
       }
     }
+
     var count = -1;
-    val l = hex.reverse.map{x => count += 1; toDecimialDigit(x) * math.pow(16,count)}
+    val l = hex.reverse.map { x => count += 1; toDecimialDigit(x) * math.pow(16, count) }
     l.sum.toInt
   }
+
   println(toDecimal("7E0"))
 }
 
-// To execute Scala, please define an object named Solution that extends App
-
+/**
+  * Print sum of  hexadecimal number 's digits
+  */
 object HexStringToDecimal extends App {
 
   /*
@@ -57,9 +62,14 @@ object HexStringToDecimal extends App {
   // 7E0 = 2016
 
   def toDecimal(hex: String): Int = {
-    hex.zipWithIndex.map{ case (x,i) =>{
-      (if(x >= '0' && x <= '9')( x - '0')else(10 + x - 'A' )) * math.pow(16,(hex.length - 1 -i)).toInt;
-    }}.sum
+    hex.zipWithIndex.map { case (x, i) => {
+      val digit = (if (x >= '0' && x <= '9')
+        (x - '0'
+          ) else
+        (10 + x - 'A'))
+      digit * math.pow(16, (hex.length - 1 - i)).toInt
+    }
+    }.sum
   }
 
   println(toDecimal("7E0"))
