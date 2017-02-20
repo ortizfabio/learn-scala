@@ -2,31 +2,27 @@ package com.bytetrend.sandbox.scala.sort
 
 class DualPivotQuicksort {
 
-	private final val INSERTION_SORT_THRESHOLD : Int = 47
+  private final val INSERTION_SORT_THRESHOLD: Int = 47
 
-  def sort(a:Array[Int]):Unit={
-     sort(a,0,a.length,true) 
+  def sort(a: Array[Int]): Unit = {
+    if( a.length < INSERTION_SORT_THRESHOLD)
+      sort(a, 0, a.length, true)
+    else
+      sort2(a)
   }
-  
-  def msort[A](less: (A, A) => Boolean)(xs: List[A]): List[A] = {
-    
-    def merge(xs1: List[A], xs2: List[A]): List[A] =
-      if (xs1.isEmpty) xs2
-      else if (xs2.isEmpty) xs1
-      else if (less(xs1.head, xs2.head)) xs1.head :: merge(xs1.tail, xs2)
-      else xs2.head :: merge(xs1, xs2.tail)
-    val n = xs.length / 2
-    if (n == 0) xs
-    else merge(msort(less)(xs take n), msort(less)(xs drop n))
-  }
+
 
   def sort2(xs: Array[Int]) {
     def swap(i: Int, j: Int) {
-      val t = xs(i); xs(i) = xs(j); xs(j) = t
+      val t = xs(i);
+      xs(i) = xs(j);
+      xs(j) = t
     }
-    def sort1(l: Int, r: Int) {
-      val pivot = xs((l + r) / 2)
-      var i = l; var j = r
+
+    def sort1(start: Int, end: Int) {
+      val pivot = xs((start + end) / 2)
+      var i = start;
+      var j = end
       while (i <= j) {
         while (xs(i) < pivot) i += 1
         while (xs(j) > pivot) j -= 1
@@ -36,41 +32,46 @@ class DualPivotQuicksort {
           j -= 1
         }
       }
-      if (l < j) sort1(l, j)
-      if (j < r) sort1(i, r)
+      if (start < j) sort1(start, j)
+      if (j < end) sort1(i, end)
     }
+
     sort1(0, xs.length - 1)
   }
 
-	def sort(a:Array[Int], left:Int, right:Int, leftmost:Boolean ):Unit={
-	    val length : Int = right - left + 1
-			if( length < INSERTION_SORT_THRESHOLD){
-				if (leftmost) {
-					var i: Int = left
-					var j: Int = left
-					while ( i < right) {
-						var ai :Int = a(i + 1)
-            var foundIt : Boolean = false
-				    while (ai < a(j) && !foundIt) {
-					    a(j + 1) = a(j)
-							if (j == left) {               
-								foundIt = true
-							}
-              j -= 1
+  def sort(a: Array[Int], left: Int, right: Int, leftmost: Boolean) = {
+    val length: Int = right - left + 1
+    if (leftmost) {
+      var i: Int = left
+      var j: Int = left
+      while (i < right) {
+        var ai: Int = a(i + 1)
+        var foundIt: Boolean = false
+        while (ai < a(j) && !foundIt) {
+          a(j + 1) = a(j)
+          if (j == left) {
+            foundIt = true
+          }
+          j -= 1
 
-				    }
-				    a(j + 1) = ai;
-				    i += 1
-						j = i
-            println(a.mkString(" "))
-					}
-				} 
-				return;
-			}
+        }
+        a(j + 1) = ai;
+        i += 1
+        j = i
+        println(a.mkString(" "))
+      }
+    }
   }
 }
 
-object DualPivotQuicksort {
-  
-  
+object DualPivotQuicksort extends App {
+
+  override def main(args: Array[String]): Unit = {
+    val sorter: DualPivotQuicksort = new DualPivotQuicksort()
+    val arr: Array[Int] = Array(3, 6, 3, 6, 8, 1, 0, 6, 4, 3,33,22,11,9,0,1,4,5,6,5,4,4,3,31,36)
+    println(arr.mkString(" "))
+    sorter.sort(arr)
+    println(arr.mkString(" "))
+  }
+
 }

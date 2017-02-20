@@ -39,22 +39,44 @@ import java.util.Scanner;
  * Difference: |4 - 19| = 15
  */
 public class DiagonalDifference {
-    public static void main(String[] args) {
-        Scanner in = new Scanner(System.in);
-        int n = in.nextInt();
+    //O(n^2)
+    public static int calc1(int[][] array){
         int topRighDown = 0;
         int bottomRightUp = 0;
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                int z = in.nextInt();
+
+        for (int i = 0; i < array.length; i++) {
+            for (int j = 0; j < array.length; j++) {
                 if(i == j)
-                    topRighDown += z;
-                if(j + i == n - 1){
-                    bottomRightUp += z;
+                    topRighDown += array[i][j];
+                if(j + i == array.length - 1){
+                    bottomRightUp += array[i][j];
                 }
             }
         }
-        System.out.println(Math.abs(bottomRightUp-topRighDown));
+        return Math.abs(bottomRightUp-topRighDown);
+    }
+    //O(n)
+    public static int calc2(int[][] array){
+        int topRighDown = 0;
+        int bottomRightUp = 0;
+        for(int i =0; i< array.length; i++){
+            topRighDown += array[i][i];
+            bottomRightUp += array[i][(array.length-1)-i];
+        }
+        return Math.abs(bottomRightUp-topRighDown);
+    }
+    public static void main(String[] args) {
+
+        Scanner in = new Scanner(System.in);
+        int n = in.nextInt();
+        int[][] array = new int[n][n];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+               array[i][j] = in.nextInt();
+            }
+        }
+        System.out.println(calc1(array));
+        System.out.println(calc2(array));
     }
 }
 

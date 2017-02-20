@@ -34,7 +34,7 @@ object InsertionSort {
 object InsertionSort2 {
 
   def isort[T](xs: List[T])(implicit ordering: Ordering[T]): List[T] = xs match {
-    case List() => {
+    case Nil => {
       println("isort1 "+List())
       List()
     }
@@ -46,7 +46,7 @@ object InsertionSort2 {
   }
 
   def insert[T](x: T, xs: List[T])(implicit ordering: Ordering[T]): List[T] = xs match {
-    case List() => {
+    case Nil => {
       println("insert1 "+List(x))
       List(x)
     }

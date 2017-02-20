@@ -1,4 +1,4 @@
-package com.bytetrend.sandbox.util;
+package com.bytetrend.sandbox.java.util;
 
 import java.util.*;
 
