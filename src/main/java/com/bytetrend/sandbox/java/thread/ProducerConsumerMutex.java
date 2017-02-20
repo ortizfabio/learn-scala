@@ -64,18 +64,14 @@ public class ProducerConsumerMutex {
                     while (list.size() == capacity)
                         wait();
 
-                    System.out.println("Producer produced-"
-                            + value);
+                    System.out.println("Producer produced-" + value);
 
                     // to insert the jobs in the list
                     list.add(value++);
 
-                    // notifies the consumer thread that
-                    // now it can start consuming
+                    // notifies the consumer thread that now it can start consuming
                     notify();
-
-                    // makes the working of program easier
-                    // to  understand
+                    // makes the working of program easier to  understand
                     Thread.sleep(1000);
                 }
             }

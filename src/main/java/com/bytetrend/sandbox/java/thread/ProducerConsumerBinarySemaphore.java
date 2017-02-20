@@ -29,12 +29,12 @@ public class ProducerConsumerBinarySemaphore {
             @Override
             public void run() {
                 try {
-                    pc.produce();
+                    pc.consume();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
-        }, "producer-2");
+        }, "consumer-2");
 
         // Create consumer thread
         Thread t3 = new Thread(new Runnable() {
@@ -135,4 +135,3 @@ public class ProducerConsumerBinarySemaphore {
         }
     }
 }
-
