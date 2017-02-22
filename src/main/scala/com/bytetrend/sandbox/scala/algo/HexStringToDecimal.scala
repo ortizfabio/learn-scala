@@ -63,10 +63,12 @@ object HexStringToDecimal extends App {
 
   def toDecimal(hex: String): Int = {
     hex.zipWithIndex.map { case (x, i) => {
-      val digit = (if (x >= '0' && x <= '9')
-        (x - '0'
-          ) else
-        (10 + x - 'A'))
+      val digit = (
+        if (x >= '0' && x <= '9')
+          (x - '0')
+        else
+          (10 + x - 'A')
+        )
       digit * math.pow(16, (hex.length - 1 - i)).toInt
     }
     }.sum
