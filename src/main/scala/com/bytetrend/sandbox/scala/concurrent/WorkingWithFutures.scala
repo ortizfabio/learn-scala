@@ -158,10 +158,10 @@ object FutureBasicExample extends App {
   }
   waterOk.onComplete {
     case Success(water) => {
-      println(s"water was heated ")
+      println(s"water was heated at $water")
     }
     case Failure(ex) => {
-      println("No hot tea today!")
+      println(s"No hot tea today! because ${ex}")
     }
   }
   Await.ready(waterOk, 5 seconds)

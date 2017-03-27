@@ -36,7 +36,7 @@ object HexDecimalSolution extends App {
       }
     }
 
-    var count = -1;
+    var count = -1
     val l = hex.reverse.map { x => count += 1; toDecimialDigit(x) * math.pow(16, count) }
     l.sum.toInt
   }

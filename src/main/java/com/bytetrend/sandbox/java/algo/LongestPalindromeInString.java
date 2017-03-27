@@ -5,7 +5,7 @@ public class LongestPalindromeInString {
     public static String findBiggestPalindromeSubstring(String input) {
         String tmp;
         String palindrome = "";
-        for (int i = 1; i < input.length() - 1; i++) {
+        for (int i = 0; i < input.length() - 1; i++) {
             // Even palindrome when two consecutive characters are the same.
             if (input.charAt(i) == input.charAt(i + 1)) {
                 for (int j = i, k = i + 1; j >= 0 && k < input.length(); j--, k++) {
@@ -18,7 +18,7 @@ public class LongestPalindromeInString {
                 }
             }
             // Odd palindrome when two characters around the current one are the same.
-            if (input.charAt(i - 1) == input.charAt(i + 1)) {
+            if (i > 0 && input.charAt(i - 1) == input.charAt(i + 1)) {
                 for (int j = i - 1, k = i + 1; j >= 0 && k < input.length(); j--, k++) {
                     if (input.charAt(j) == input.charAt(k)) {
                         tmp = input.substring(j, k + 1);

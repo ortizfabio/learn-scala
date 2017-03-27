@@ -2,9 +2,8 @@ package com.bytetrend.sandbox.scala.concurrent
 
 import scala.collection.mutable
 import scala.collection.mutable.MutableList
-/**
- * Created by db2admin on 5/13/2016.
- */
+
+
 class ProducerConsumer extends Thread{
 
   private val linesToLog : MutableList[String] = new mutable.MutableList[String]()
