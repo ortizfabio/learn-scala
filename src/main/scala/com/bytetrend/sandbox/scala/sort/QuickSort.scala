@@ -1,60 +1,106 @@
 package com.bytetrend.sandbox.scala.sort
 
-/**
-  * Created by db2admin on 1/26/2017.
-  */
-object QuickSort {
+import scala.annotation.tailrec
 
-  import collection.mutable.ArrayBuffer
 
-  private def swap(array: ArrayBuffer[Int], left: Int, right: Int) = {
-    val t = array(left)
-    array(left) = array(right)
-    array(right) = t
-  }
 
-  private def partition(array: ArrayBuffer[Int], left: Int, right: Int, pivot: Int): Int = {
-    var le = left
-    var ri = right
+object Recursive extends App {
 
-    while (le <= ri) {
-      while (array(le) < pivot)
-        le = le + 1
-      while (array(ri) > pivot)
-        ri = ri - 1
-      if (le <= ri) {
-        swap(array, le, ri)
-        le = le + 1
-        ri = ri - 1
+  def quicksort[T](xs: List[T])(gt: (T, T) => Boolean): List[T] = {
+
+    @annotation.tailrec
+    def qsort(todo: List[List[T]], done: List[T]): List[T] = {
+//      println(todo.mkString(",") + " - " + done.mkString(","))
+      todo match {
+        case Nil => done
+        case xshead :: xstail => xshead match {
+          case Nil => qsort(xstail, done)
+          case pivot :: tail =>
+            //Compare list against pivot return > on left and < on right
+            //This is so that ordering of elements on done is done
+            //by pre-pending the largest number in the list and so on.
+            val (greater, smaller) = (tail partition (gt(_, pivot)))
+            //Check if pivot is the greater that is when greater list is empty
+            if (greater.isEmpty) {
+              //Since pivot is the next greater lets added to the done list
+              if (smaller.isEmpty)
+                qsort(xstail, pivot :: done)
+              else
+                qsort(smaller :: xstail, pivot :: done)
+            } else {
+              //keep sorting until we find the next greater
+              qsort(greater :: List(pivot) :: smaller :: xstail, done)
+            }
+        }
       }
     }
-    le
+
+    qsort(List(xs), Nil)
   }
 
-  private def quicksort(array: ArrayBuffer[Int], left: Int, right: Int): Unit = {
-    if (left < right) {
-      val pivot = array(left + (right - left) / 2)
-      val index = partition(array, left, right, pivot)
-      println(array.mkString("[", ",", "]") + " " + left + " " + right + " " + pivot + " " + index)
-        quicksort(array, left, index - 1)
-        quicksort(array, index, right)
+  val sc = new java.util.Scanner(System.in)
+  val array = sc.nextLine().split(" ").map(_.toInt)
+
+  println(array.mkString("[", ",", "]"))
+
+
+  println(quicksort(array.toList)(Ordering[Int].gt).mkString(","))
+
+}
+
+object NonRecursive extends App {
+  def qsrt[T](xs: List[T])(implicit lt: (T, T) => Boolean): List[T] = {
+    xs match {
+      case Nil => Nil
+      case pivot :: tail =>
+        val (smaller, larger) = tail.partition(lt(_, pivot))
+        qsrt(smaller) ::: pivot :: qsrt(larger)
     }
   }
 
-  def quicksort(array: ArrayBuffer[Int]): Unit = {
-    println(array.mkString("[", ",", "]"))
-    quicksort(array, 0, array.length - 1)
-    println(array.mkString("[", ",", "]"))
+  val sc = new java.util.Scanner(System.in)
+  val array = sc.nextLine().split(" ").map(_.toInt)
+
+  println(array.mkString("[", ",", "]"))
+
+
+  println(qsrt(array.toList)(Ordering[Int].lt).mkString(","))
+
+
+}
+
+object QuickSort extends App {
+
+  def quicksort(xs: Array[Int]) {
+    def swap(i: Int, j: Int) {
+      val t = xs(i); xs(i) = xs(j); xs(j) = t
+    }
+    def sort1(l: Int, r: Int) {
+      val pivot = xs((l + r) / 2)
+      var i = l
+      var j = r
+      while (i <= j) {
+        while (xs(i) < pivot) i += 1
+        while (xs(j) > pivot) j -= 1
+        if (i <= j) {
+          swap(i, j)
+          i += 1
+          j -= 1
+        }
+      }
+      if (l < j) sort1(l, j)
+      if (i < r) sort1(i, r)
+    }
+    sort1(0, xs.length - 1)
   }
 
-  def main(args: Array[String]) = {
-    val sc = new java.util.Scanner(System.in)
-    val n: Int = sc.nextLine().toInt
-    val array = ArrayBuffer[Int]()
-    for (i <- 0 until n)
-      array(i) = sc.nextInt
-    println(array.mkString("[", ",", "]"))
-    quicksort(array)
-    println(array.mkString("[", ",", "]"))
-  }
+  val sc = new java.util.Scanner(System.in)
+  val array = sc.nextLine().split(" ").map(_.toInt)
+
+  println(array.mkString("[", ",", "]"))
+  quicksort(array)
+
+  println(array.mkString(","))
+
 }
+
