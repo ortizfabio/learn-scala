@@ -69,6 +69,9 @@ object NonRecursive extends App {
 
 }
 
+/**
+  * http://100timesover.blogspot.gr/2012/09/quicksort-rewritten-in-tail-recursive.html
+  */
 object QuickSort extends App {
 
   def quicksort(xs: Array[Int]) {

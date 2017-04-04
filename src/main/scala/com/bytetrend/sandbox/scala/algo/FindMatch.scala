@@ -12,7 +12,7 @@ object FindMatch extends App {
     * @return
     */
   def findmatch(pattern: Array[Char], text: Array[Char]): Int = {
-    var (ptrnIndex, textIndex) = (0, 0)
+
     //pm is the  length of the pattern and tm the length of the text.
     val (ptrnLen, textLen) = (pattern.length, text.length)
     for (txtIndex <- 0 to (textLen - ptrnLen)) {

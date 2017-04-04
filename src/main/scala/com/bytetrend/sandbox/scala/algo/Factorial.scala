@@ -5,12 +5,10 @@ import scala.annotation.tailrec
 object Factorial {
 
   final def factorial1(n: Int): Long = {
-
     if (n == 0)
       1
     else
       (n * factorial1(n - 1))
-
   }
 
 
@@ -22,6 +20,16 @@ object Factorial {
       factorial(n * accumulator, n - 1)
     }
     factorial(1,n)
+  }
+  def factorial5(n:Int ):Int = {
+    @tailrec
+    def fact(n:Int, prev:Int):Int={
+     n  match {
+        case 0 => prev
+        case _ => fact(n-1, prev * n)
+      }
+    }
+    fact(n,1)
   }
 
   def factorial2(n: Int): Int = {

@@ -12,13 +12,14 @@ object PrintIntAsBinary {
         "0" //seq is a val and can not be appended otherwise use (0::seq).mkString("")
       else
         seq.mkString(" ")
-    } else toBinary(i>>>1,(i%2) :: seq)
+    } else
+      toBinary(i>>>1,(i%2) :: seq)
   }
 
   def main(args : Array[String]): Unit ={
     println("Enter an integer ")
     val x = readInt()
-    println("In binary notation: "+toBinary(x))
+    println(x+" in binary notation: "+toBinary(x))
   }
 
 }

@@ -14,8 +14,8 @@ object MergeTwoArraysFindK {
   import scala.collection.mutable.PriorityQueue
 
   def findK(arrayOne: Array[Int], arrayTwo: Array[Int], k: Int): Int = {
-    implicit val ord = Ordering[Int].reverse
-    val minHeap = new PriorityQueue[Int] ++= (arrayOne ++ arrayTwo).iterator
+   // implicit val ord = Ordering[Int].reverse
+    val minHeap = new PriorityQueue[Int] ++= (arrayOne ++ arrayTwo)
     for (i <- 1 to k)
       if (i == k)
         return minHeap.dequeue()

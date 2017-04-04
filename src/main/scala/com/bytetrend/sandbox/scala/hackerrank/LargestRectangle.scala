@@ -15,16 +15,15 @@ object LargestRectangle {
   def calc(stack: Stack[PositionHeight], index: Int, thisHeight: Int): Int = {
     var area = 0
     //Keeps track of the last position processed.
-    var insertPos = index
+
     while (!stack.isEmpty && stack.top.height > thisHeight) {
       val item = stack.pop()
-      insertPos = item.position
-      val potArea = (index - insertPos) * item.height
+      val potArea = (index - item.position) * item.height
       area = Math.max(area,potArea)
     }
 
     if (stack.isEmpty || (stack.top.height != thisHeight ))
-      stack.push(PositionHeight(insertPos, thisHeight))
+      stack.push(PositionHeight(index, thisHeight))
     area
   }
 
@@ -35,29 +34,11 @@ object LargestRectangle {
       ((x._1, x._2 + 1))
     }
     )
+    //Need to calculate till one pass the end of the array to account for the last bar.
     area = Math.max(area, calc(stack,heights.length, 0))
     area
   }
 
-
-  def maxAreaSingle(implicit heights: Array[Int]): Int = {
-    var area = 0
-    val (stack, index) = heights.foldLeft(((Stack[PositionHeight](), 0)))((x, y) => {
-      if (x._1.isEmpty ||  y >= x._1.top.height ) {
-        x._1.push(PositionHeight(x._2, y))
-      }else{
-
-      }
-      ((x._1, x._2 + 1))
-    })
-
-    while (!stack.isEmpty ) {
-      val item = stack.pop()
-      area = Math.max(area, (index - item.position) * item.height)
-    }
-
-    area
-  }
 
   def main(args: Array[String]): Unit = {
     val in = new java.util.Scanner(System.in)
@@ -65,7 +46,6 @@ object LargestRectangle {
     implicit val height: Array[Int] = Array.ofDim(n)
     for (i <- 0 until n) height(i) = in.nextInt
     println(maxArea)
-
   }
 
 }

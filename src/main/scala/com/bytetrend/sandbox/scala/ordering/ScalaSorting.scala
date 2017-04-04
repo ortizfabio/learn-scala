@@ -1,4 +1,4 @@
-package demo
+package com.bytetrend.sandbox.scala.ordering
 
 /**
   * the function should return 5. Assume that:

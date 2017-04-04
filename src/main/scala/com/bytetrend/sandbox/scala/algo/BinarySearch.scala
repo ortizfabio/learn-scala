@@ -12,10 +12,10 @@ object BinarySearch {
 
       if (list.isEmpty || start == end) -1
       else {
-        val mid: Int = start + (start + end) / 2
+        val mid: Int = (start + end) / 2
         if (list(mid) == target)
           mid
-        else if (ordering.gt(list(mid), target))
+        else if (ordering.gt(target,list(mid)))
           bSearch(mid + 1, end)
         else
           bSearch(start, mid)
@@ -31,11 +31,11 @@ object BinarySearch {
 
       if (list.isEmpty || start == end) -1
       else {
-        val mid: Int = start + (start + end) / 2
+        val mid: Int = (start + end) / 2
         list match {
           case array :Array[T] if(array(mid) == target) => mid
-          case array :Array[T] if(ordering.lt(array(mid),target)) => bSearch(start,mid-1)
-          case array :Array[T] if(ordering.gt(array(mid),target)) => bSearch(mid+1,end)
+          case array :Array[T] if(ordering.lt(target,array(mid))) => bSearch(start,mid-1)
+          case _ => bSearch(mid+1,end)
         }
       }
     }
@@ -44,7 +44,15 @@ object BinarySearch {
 
   def main(args :Array[String]): Unit ={
     implicit val ordering = Ordering[Int]
+
+    println(binarySearch1( Array(1,3,5,7,9,10,20), 3))
+    println(binarySearch2( Array(1,3,5,7,9,10,20), 3))
+
+    println(binarySearch1( Array(1,3,5,7,9,10,20), 10))
+    println(binarySearch2( Array(1,3,5,7,9,10,20), 10))
+
     println(binarySearch1( Array(1,3,5,7,9,10,20), 7))
     println(binarySearch2( Array(1,3,5,7,9,10,20), 7))
+
   }
 }
