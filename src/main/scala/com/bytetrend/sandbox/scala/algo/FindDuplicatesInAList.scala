@@ -27,8 +27,22 @@ object FindDuplicatesInAList extends App {
     println(list)
   }
 
-  val dup = List(1, 1, 1, 2, 3, 4, 5, 5, 6, 100, 101, 101, 102)
+  val dup = Array(1, 1, 1, 2, 3, 4, 5, 5, 6, 100, 101, 101, 102).toList
   dups(dup)
   acceptable(dup)
   tooManycall(dup)
+}
+
+object Solution {
+
+  def countDuplicates(numbers: Array[Int]): Int = {
+    val l2: Map[Int, Int] = numbers.toList.groupBy(identity).collect { case (x, ys) if ys.lengthCompare(1) > 0 => (x, ys.size) }
+    l2.size
+  }
+
+  def main(args: Array[String]) {
+    println(countDuplicates(Array(1, 1, 1, 2, 2, 3, 4, 9, 3)))
+  }
+
+
 }
