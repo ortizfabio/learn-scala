@@ -1,8 +1,7 @@
 <configuration>
+    <conversionRule conversionWord="coloredLevel" converterClass="play.api.Logger$ColoredLevel" />
+
     <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
-        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-            <level>info</level>
-        </filter>
         <encoder>
             <pattern>%date{HH:mm:ss} %-5level [%X{akkaSource}] - %msg%n</pattern>
         </encoder>
@@ -11,7 +10,7 @@
     <appender name="file" class="ch.qos.logback.core.FileAppender">
         <file>${akka.log-file:-akka.log}</file>
         <encoder>
-            <pattern>%date{HH:mm:ss} %-5level [%X{akkaSource}] - %msg%n</pattern>
+            <pattern>%coloredLevel %date - %X{akkaSource} %message%n%xException</pattern>
         </encoder>
     </appender>
 
@@ -23,6 +22,9 @@
     <logger name="akka.actor.RepointableActorRef" level="debug" additivity="false">
         <appender-ref ref="console"/>
         <!-- <appender-ref ref="file"/> -->
+    </logger>
+    <logger name="com.bytetrend.sandbox.scala.akka" level="debug" additivity="false">
+        <appender-ref ref="console"/>
     </logger>
 
     <root level="info">

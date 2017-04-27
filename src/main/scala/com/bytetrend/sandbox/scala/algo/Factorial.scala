@@ -11,7 +11,6 @@ object Factorial {
       (n * factorial1(n - 1))
   }
 
-
   def factorial(n: Int): Int = {
     @tailrec
     def factorial(accumulator: Int, n: Int): Int = {
@@ -21,6 +20,7 @@ object Factorial {
     }
     factorial(1,n)
   }
+
   def factorial5(n:Int ):Int = {
     @tailrec
     def fact(n:Int, prev:Int):Int={
@@ -42,11 +42,13 @@ object Factorial {
 
   def fact4: Stream[Int] = 1 #:: fact4.scanLeft(1)(_ * _)
 
-  def main(args: Array[String]): Unit = {
-    println("factorial1 " + factorial1(10) + " " + factorial1(0) + " " + factorial(2) + " " + factorial1(3))
-    println("factorial2 " + factorial2(10) + " " + factorial2(0) + " " + factorial2(2) + " " + factorial2(3))
-    println("factorial " + factorial(10) + " " + factorial(0) + " " + factorial(2) + " " + factorial(3))
-    println("fact4 " + fact4(10) + " " + fact4(0) + " " + fact4(2) + " " + fact4(3))
 
+
+  def main(args: Array[String]): Unit = {
+
+    print("factorial  "); for(j <- 0 to 10) print(factorial(j)+" "); println
+    print("factorial1 "); for(j <- 0 to 10) print(factorial1(j)+" "); println
+    print("factorial2 "); for(j <- 0 to 10) print(factorial2(j)+" "); println
+    print("fact4      "); for(j <- 0 to 10) print(fact4(j)+" "); println
   }
 }

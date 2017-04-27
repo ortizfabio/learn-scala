@@ -1,4 +1,4 @@
-package com.bytetrend.sandbox.java.thread;
+package com.bytetrend.sandbox.java.thread.deadlock;
 
 import java.util.Random;
 import java.util.concurrent.ArrayBlockingQueue;
@@ -7,11 +7,11 @@ import java.util.concurrent.Semaphore;
 
 /**
  * This is a demo of a thread deadlock. The deadlock occurs because the
- * choice of collection used for the producer/consumer class. In tis case a blocking queue of size 1
+ * choice of collection used for the producer/consumer class. In this case a blocking queue of size 1
  * as been chosen which results in a deadlock
  *
  * 1) when the consumer grabs the semaphore but there is nothing in the queue and then call blocking method poll.
- * 2) when the producer grags the semaphore but the queue is already full preventing the consumer to grab the sempahore
+ * 2) when the producer grabs the semaphore but the queue is already full preventing the consumer to grab the semaphore
  *    and taking the element from te queue.
  */
 public class DeadlockBinarySemaphore {
@@ -50,7 +50,7 @@ public class DeadlockBinarySemaphore {
         t1.start();
         t3.start();
 
-        // t1 finishes before t2
+        // t1 finishes before t3
         t1.join();
         t3.join();
 
@@ -101,8 +101,9 @@ public class DeadlockBinarySemaphore {
                 semaphore.acquire();
                 try {
                     System.out.println(Thread.currentThread().getName() + ": got permit " + semaphore.availablePermits() + " items " + queue.size());
-                    //to retrive the ifrst job in the queue
+                    //to retrieve the first job in the queue
                     if (queue.size() > 0) {
+
                         int value = queue.poll();
                         System.out.println(Thread.currentThread().getName() + " consumed- " + value);
                     }

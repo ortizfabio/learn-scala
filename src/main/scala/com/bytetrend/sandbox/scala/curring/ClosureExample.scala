@@ -1,11 +1,24 @@
 package com.bytetrend.sandbox.scala.curring
 
-object MyClosure {
+object ClosureExample {
 
+  /**
+    * This is a higher order function that takes another function which is used
+    * in the map method.
+    *
+    * @param multiplier
+    * @return
+    */
   def m1(multiplier: Int => Int) = {
     (1 to 10) filter (_ % 2 == 0) map multiplier reduce (_ * _)
   }
 
+  /**
+    * This is a function that returns another function with signature Int => Int
+    * but also does a closure on the value of factor.
+    *
+    * @return
+    */
   def m2: Int => Int = {
     val factor = 2
     val multiplier = (i: Int) => i * factor
@@ -25,11 +38,17 @@ object MyClosure {
     */
   def main(args: Array[String]): Unit = {
     var factor = 3
+    //This function is exactly the same as m2 defined above but the factor is taken from this
+    //enclosure.
+
     val multiplier = (i: Int) => i * factor
     println(s"with factor =$factor is =" + ((1 to 10) filter (_ % 2 == 0) map multiplier reduce (_ * _)))
     factor = 4
+    //Same as above but we have
     println(s"with factor =$factor is =" + ((1 to 10) filter (_ % 2 == 0) map multiplier reduce (_ * _)))
 
+    //Here we call the previous two functions
     println("closure call factor is 2 " + m1(m2))
   }
+
 }

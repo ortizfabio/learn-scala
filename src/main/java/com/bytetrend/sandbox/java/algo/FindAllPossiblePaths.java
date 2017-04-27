@@ -1,7 +1,7 @@
 package com.bytetrend.sandbox.java.algo;
 
 
-public class FindAllPosiblePaths {
+public class FindAllPossiblePaths {
     public static int countPaths(int[][] map) {
         if (map == null) {
             throw new NullPointerException();
@@ -49,15 +49,15 @@ public class FindAllPosiblePaths {
 
     public static void main(String[] args) {
         int[][] array = {{1, 1, 1}, {0, 0, 1}, {0, 0, 1}};
-        System.out.println((new FindAllPosiblePaths()).countPaths(array));
+        System.out.println((new FindAllPossiblePaths()).countPaths(array));
         int[][] array2 = {{1, 0, 0}, {1, 0, 1}, {1, 1, 1}};
-        System.out.println((new FindAllPosiblePaths()).countPaths(array2));
+        System.out.println((new FindAllPossiblePaths()).countPaths(array2));
         int[][] array3 = {{1, 1, 1}, {1, 0, 1}, {1, 1, 1}};
-        System.out.println((new FindAllPosiblePaths()).countPaths(array3));
+        System.out.println((new FindAllPossiblePaths()).countPaths(array3));
         int[][] array4 = {{1, 1, 1}, {1, 1, 1}, {1, 1, 0}};
-        System.out.println((new FindAllPosiblePaths()).countPaths(array4));
+        System.out.println((new FindAllPossiblePaths()).countPaths(array4));
         int[][] array5 = {{1, 0, 0, 0}, {0, 1, 0, 0}, {0, 0, 1, 0}, {0, 0, 0, 1}};
-        System.out.println((new FindAllPosiblePaths()).countPaths(array5));
+        System.out.println((new FindAllPossiblePaths()).countPaths(array5));
 
     }
 }

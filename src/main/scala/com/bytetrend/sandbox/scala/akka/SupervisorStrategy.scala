@@ -63,9 +63,9 @@ object Worker {
 }
 
 /**
-  * Worker performs some work when it receives the `Start` message.
+  * Producer performs some work when it receives the `Start` message.
   * It will continuously notify the sender of the `Start` message
-  * of current ``Progress``. The `Worker` supervise the `CounterService`.
+  * of current ``Progress``. The `Producer` supervise the `CounterService`.
   */
 class Worker extends Actor with ActorLogging {
   import CounterService._
@@ -159,7 +159,7 @@ class CounterService extends Actor {
 
     case Entry(k, v) if k == key && counter == None =>
       // Reply from Storage of the initial value, now we can create the Counter
-      val c = context.actorOf(Props(classOf[Counter], key, v))
+      val c = context.actorOf(Props(classOf[transactor.Counter], key, v))
       counter = Some(c)
       // Tell the counter to use current storage
       c ! UseStorage(storage)
@@ -167,7 +167,7 @@ class CounterService extends Actor {
       for ((replyTo, msg) <- backlog) c.tell(msg, sender = replyTo)
       backlog = IndexedSeq.empty
 
-    case msg: Increment       => forwardOrPlaceInBacklog(msg)
+    case msg: transactor.Increment       => forwardOrPlaceInBacklog(msg)
 
     case msg: GetCurrentCount => forwardOrPlaceInBacklog(msg)
 

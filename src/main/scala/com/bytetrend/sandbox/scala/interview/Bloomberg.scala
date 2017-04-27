@@ -63,4 +63,16 @@ object Bloomberg2 extends App {
   }
 
   process("aaaabbbbbcddaaabb")
+
+  class Container {
+    val mySet = scala.collection.mutable.HashSet[String]()
+
+
+    def add(s : String) = mySet += s
+
+    def remove(s: String) = mySet -= s
+
+    def getRandom():String = mySet.toVector(scala.util.Random.nextInt(mySet.size - 1))
+  }
+
 }
