@@ -1,4 +1,4 @@
-package com.bytetrend.sandbox.java.thread;
+package com.bytetrend.sandbox.java.concurrent;
 
 import java.text.SimpleDateFormat;
 import java.util.Random;

@@ -1,4 +1,4 @@
-package com.bytetrend.sandbox.java.thread;
+package com.bytetrend.sandbox.java.concurrent;
 
 import java.util.Random;
 import java.util.concurrent.Exchanger;
@@ -33,7 +33,7 @@ public class ExchangerExample {
         public void run() {
             while(true) {
                 try {
-                    //do procesing & empty the queue
+                    //do processing & empty the queue
                     //exchange the empty queue for a full queue with Producer
                     queue = exchanger.exchange("Consumer " + value++);
                     System.out.println(Thread.currentThread().getName() + " now has " + queue);

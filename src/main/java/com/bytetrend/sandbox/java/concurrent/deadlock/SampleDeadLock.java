@@ -1,4 +1,4 @@
-package com.bytetrend.sandbox.java.thread.deadlock;
+package com.bytetrend.sandbox.java.concurrent.deadlock;
 
 public class SampleDeadLock {
     static final Object resource1 = "resource1";

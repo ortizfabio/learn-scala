@@ -1,4 +1,4 @@
-package com.bytetrend.sandbox.java.thread.stamped;
+package com.bytetrend.sandbox.java.concurrent.stamped;
 
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;

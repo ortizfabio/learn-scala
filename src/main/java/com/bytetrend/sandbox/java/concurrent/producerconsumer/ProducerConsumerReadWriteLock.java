@@ -1,7 +1,5 @@
-package com.bytetrend.sandbox.java.thread;
+package com.bytetrend.sandbox.java.concurrent.producerconsumer;
 
-
-import scala.actors.threadpool.Arrays;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +19,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
  *
  * @param <E>
  */
-public class ReadWriteLockExample<E> {
+public class ProducerConsumerReadWriteLock<E> {
     private final ReadWriteLock readWriteLock = new ReentrantReadWriteLock();
 
     private final Lock readLock = readWriteLock.readLock();
@@ -31,7 +29,7 @@ public class ReadWriteLockExample<E> {
     private final List<E> list;
 
 
-    public ReadWriteLockExample(int count) {
+    public ProducerConsumerReadWriteLock(int count) {
         //Arrays.asList(new String[count - 1])
         list = new ArrayList<>();
     }
@@ -108,14 +106,14 @@ public class ReadWriteLockExample<E> {
 
     public static void main(String[] args) {
         int count = 30;
-        ReadWriteLockExample<String> example = new ReadWriteLockExample<>(count);
+        ProducerConsumerReadWriteLock<String> example = new ProducerConsumerReadWriteLock<>(count);
         produce(example, count);
         consume(example, count);
 
 
     }
 
-    private static void produce(ReadWriteLockExample example, int count) {
+    private static void produce(ProducerConsumerReadWriteLock example, int count) {
 
         ExecutorService executor = Executors.newFixedThreadPool(100);
 
@@ -152,7 +150,7 @@ public class ReadWriteLockExample<E> {
         }
     }
 
-    private static void consume(ReadWriteLockExample example, int count) {
+    private static void consume(ProducerConsumerReadWriteLock example, int count) {
 
         ExecutorService executor = Executors.newFixedThreadPool(count / 10);
 

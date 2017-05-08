@@ -1,4 +1,4 @@
-package com.bytetrend.sandbox.java.thread;
+package com.bytetrend.sandbox.java.concurrent.producerconsumer;
 
 
 import java.util.LinkedList;

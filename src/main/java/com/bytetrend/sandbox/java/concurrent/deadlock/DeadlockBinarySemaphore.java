@@ -1,4 +1,4 @@
-package com.bytetrend.sandbox.java.thread.deadlock;
+package com.bytetrend.sandbox.java.concurrent.deadlock;
 
 import java.util.Random;
 import java.util.concurrent.ArrayBlockingQueue;

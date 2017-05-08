@@ -1,4 +1,4 @@
-package com.bytetrend.sandbox.java.thread.deadlock;
+package com.bytetrend.sandbox.java.concurrent.deadlock;
 
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;

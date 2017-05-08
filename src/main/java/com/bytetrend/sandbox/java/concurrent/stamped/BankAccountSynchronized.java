@@ -1,4 +1,4 @@
-package com.bytetrend.sandbox.java.thread.stamped;
+package com.bytetrend.sandbox.java.concurrent.stamped;
 
 /**
  * http://www.javaspecialists.eu/archive/Issue215.html
