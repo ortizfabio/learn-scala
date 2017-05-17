@@ -1,4 +1,4 @@
-package com.bytetrend.sandbox.scala.interview;
+package com.bytetrend.sandbox.java.java8;
 
 import java.util.Arrays;
 
