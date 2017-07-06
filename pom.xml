@@ -231,6 +231,17 @@
                         </goals>
                     </execution>
                 </executions>
+                <configuration>
+                    <jvmArgs>
+                        <jvmArg>-Xms64m</jvmArg>
+                        <jvmArg>-Xmx1024m</jvmArg>
+                    </jvmArgs>
+                    <args>
+                        <arg>-unchecked</arg>
+                        <arg>-deprecation</arg>
+                        <arg>-explaintypes</arg>
+                    </args>
+                </configuration>
             </plugin>
 
             <!-- configure the eclipse plugin to generate eclipse project descriptors for a Scala project -->
