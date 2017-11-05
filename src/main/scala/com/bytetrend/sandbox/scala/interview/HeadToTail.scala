@@ -1,5 +1,6 @@
 package com.bytetrend.sandbox.scala.interview
 
+
 import scala.collection.mutable.ListBuffer
 
 /**
@@ -55,18 +56,18 @@ tire
     list
   }
 
-
+/** This solution does not work second does */
   def solution(list: ListBuffer[(Char, Char)]) {
     var found = false
     var count = 0
-    var ll: ListBuffer[(Char, Char)] = new ListBuffer[(Char,Char)] ++ list
-    while(!found && count < list.length){
-      found = solve(ll.head,ll.tail)
+    var ll: ListBuffer[(Char, Char)] = new ListBuffer[(Char, Char)] ++ list
+    while (!found && count < list.length) {
+      found = solve(ll.head, ll.tail)
       ll.append(ll.head)
       ll = new ListBuffer ++ (ll.tail)
       count = count + 1
     }
-    if(found)
+    if (found)
       println("Ordering is possible.")
     else
       println("The door cannot be opened.")
@@ -92,7 +93,8 @@ tire
         result = findMatch(x, list)
       }
       result match {
-        case false => false
+        case false =>
+          false
         case true => {
           if (list.size == 1) {
             println(x)
@@ -110,12 +112,77 @@ tire
 }
 
 object HeadToTailTest extends App {
-import HeadToTail.solution
+
+  import HeadToTail.solution
   //Should print "Ordering is possible."
-  solution(new ListBuffer() ++ List("route", "error", "eat", "event", "time", "exit", "tuba", "adam").map(x => (x.charAt(0),x.reverse.charAt(0))))
+  solution(new ListBuffer() ++ List("route", "error", "eat", "event", "time", "exit", "tuba", "adam").map(x => (x.charAt(0), x.reverse.charAt(0))))
   //Should print "The door cannot be opened."
-  solution(new ListBuffer() ++ List("apple", "lion", "nile", "animal").map(x => (x.charAt(0),x.reverse.charAt(0))))
+  solution(new ListBuffer() ++ List("apple", "lion", "nile", "animal").map(x => (x.charAt(0), x.reverse.charAt(0))))
   //Should print "Ordering is possible."
-  solution(new ListBuffer() ++ List("river", "error", "eat", "tire").map(x => (x.charAt(0),x.reverse.charAt(0))))
+  solution(new ListBuffer() ++ List("river", "error", "eat", "tire").map(x => (x.charAt(0), x.reverse.charAt(0))))
+
+}
+
+/**
+  * This solution works
+  */
+object SecondSolution extends App {
+
+  def solve(words: Array[String]): Unit = {
+
+    var result: List[Int] = List.empty
+    //Prime the search by taking the first word and looping thru all unless one is found
+    //The solution returned should have a length equal to the list of all words.
+    (0 until words.length).takeWhile(i =>  {
+      result = run(i)
+      result.length != words.length
+    })
+
+    if ( result.length == words.length)
+      println(s"Ordering is possible. ${result.reverse.foreach(x => print(s" ${words(x)} "))}")
+    else
+      println("The door cannot be opened.")
+
+    def rebuildMap(char:Char,list:List[Int],bitMap: Map[Char, List[Int]]): Map[Char, List[Int]]={
+      val m = (bitMap - (char))
+      if(!list.isEmpty)
+        m + (char -> list)
+      else
+        m
+    }
+
+    def search(indexList:List[Int],bitMap: Map[Char, List[Int]]): List[Int] = {
+      val lastChar = words(indexList.head).reverse.charAt(0)
+      bitMap.get(lastChar) match {
+        case Some(list) if(list.headOption != None) => {
+          var endList = List.empty[Int]
+          list.takeWhile(i => {
+            endList = search(i :: indexList,rebuildMap(lastChar,list.filter(_!=i),bitMap))
+            endList.length != words.length
+          })
+          endList
+        }
+        case _ => {
+            indexList
+        }
+      }
+    }
+
+    def run(index:Int): List[Int] = {
+      val bitMap: Map[Char, List[Int]] = words.zipWithIndex.filter(pair => pair._2 != index).foldLeft(Map.empty[Char, List[Int]])((map, wordIndexPair) => {
+        val (word:String,index:Int) = wordIndexPair
+        val indexList = map.getOrElse(word.charAt(0), List.empty[Int])
+        map + (word.charAt(0) -> ( index :: indexList))
+      })
+      search(List(index), bitMap)
+    }
+  }
+
+  solve(Array[String]( "tuba", "error", "route", "exit", "time", "event", "adam"))
+  solve(Array[String]("river", "error", "eat", "tire"))
+  solve(Array[String]("route", "error", "eat", "event", "time", "exit", "tuba", "adam"))
+  solve(Array[String]("apple", "lion", "nile", "animal"))
+
+
 
 }

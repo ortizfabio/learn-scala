@@ -110,17 +110,23 @@ object SuperReducedString {
     var j = 0
     while (i < input.length) {
       val char = input(i)
+      //If output array is empty or its last
+      //entry is different than char the push
+      //to output array and increment j
       if (j == 0 || output(j - 1) != char) {
         output(j) = char
         j += 1
       } else {
+        //char and the last entry in output array
+        //are the same. It needs to be removed and
+        //j reset one back.
         output(j - 1) = '\u0000'
         j -= 1
       }
+      //increase counter
       i += 1
     }
-    val s = new String(output)
-    if (j > 0) s.substring(0, j) else empty
+    if (j > 0) (new String(output)).substring(0, j) else empty
   }
 
   def main(args: Array[String]) {
