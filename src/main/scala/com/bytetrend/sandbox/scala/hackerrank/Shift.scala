@@ -46,5 +46,7 @@ object Shift extends App{
   }
 
   println(getShiftedString("abcd",0,3))
+  println(getShiftedString("abcd",3,0))
+  println(getShiftedString("abcd",3,3))
 
 }

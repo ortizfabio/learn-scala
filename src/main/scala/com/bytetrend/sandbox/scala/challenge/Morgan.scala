@@ -1,4 +1,4 @@
-package com.bytetrend.sandbox.scala.interview
+package com.bytetrend.sandbox.scala.challenge
 
 object Morgan {
 

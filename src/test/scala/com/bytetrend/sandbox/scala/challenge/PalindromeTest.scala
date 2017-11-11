@@ -1,4 +1,4 @@
-package com.bytetrend.sandbox.scala.interview
+package com.bytetrend.sandbox.scala.challenge
 
 import org.scalatest.{FunSpec, Matchers}
 import Palindrome.{isPalindrome,palindrome,palindrome2}

@@ -1,7 +1,7 @@
-package com.bytetrend.sandbox.scala.interview
+package com.bytetrend.sandbox.scala.challenge
 
 
-import com.bytetrend.sandbox.scala.interview.MapImplementation.map
+import com.bytetrend.sandbox.scala.challenge.MapImplementation.map
 import org.junit.Test
 import org.scalacheck.Arbitrary._
 import org.scalacheck.Prop._

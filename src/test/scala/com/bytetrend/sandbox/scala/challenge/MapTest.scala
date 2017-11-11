@@ -1,6 +1,6 @@
-package com.bytetrend.sandbox.scala.interview
+package com.bytetrend.sandbox.scala.challenge
 
-import com.bytetrend.sandbox.scala.interview.MapImplementation.{map, map2}
+import com.bytetrend.sandbox.scala.challenge.MapImplementation.{map, map2}
 import org.scalatest.{FunSpec, Matchers}
 
 /**

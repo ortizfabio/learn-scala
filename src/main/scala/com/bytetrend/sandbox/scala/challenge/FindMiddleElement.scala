@@ -1,4 +1,4 @@
-package com.bytetrend.sandbox.scala.interview
+package com.bytetrend.sandbox.scala.challenge
 
 /**
   * Find out middle index where sum of both ends are equal.
