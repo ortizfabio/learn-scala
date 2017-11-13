@@ -46,6 +46,3 @@ sandboxes/vagrant/projects/*
 *.tar
 *.gz
 *.tgz
-
-
-/pom.xml
