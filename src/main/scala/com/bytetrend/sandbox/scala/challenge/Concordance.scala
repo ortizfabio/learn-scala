@@ -1,4 +1,4 @@
-package com.bytetrend.sandbox.scala
+package com.bytetrend.sandbox.scala.challenge
 
 import scala.collection.immutable.TreeMap
 import scala.collection.mutable.Map
