@@ -11,10 +11,10 @@ object Powerset2 {
 
   def power[A](t: Set[A]): Set[Set[A]] = {
     @annotation.tailrec
-    def pwr(t: Set[A], ps: Set[Set[A]]): Set[Set[A]] = {
-      println(t.mkString(",")+" -- "+ps.mkString(","))
-      if (t.isEmpty) ps
-      else pwr(t.tail, ps ++ (ps map (_ + t.head)))
+    def pwr(source: Set[A], acc: Set[Set[A]]): Set[Set[A]] = {
+      println(source.mkString(",")+" -- "+acc.mkString(","))
+      if (source.isEmpty) acc
+      else pwr(source.tail, acc ++ (acc map (_ + source.head)))
     }
 
     pwr(t, Set(Set.empty[A])) //Powerset of ∅ is {∅}

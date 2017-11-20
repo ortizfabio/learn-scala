@@ -50,5 +50,6 @@ object Factorial {
     print("factorial1 "); for(j <- 0 to 10) print(factorial1(j)+" "); println
     print("factorial2 "); for(j <- 0 to 10) print(factorial2(j)+" "); println
     print("fact4      "); for(j <- 0 to 10) print(fact4(j)+" "); println
+    print("factorial5 "); for(j <- 0 to 10) print(factorial5(j)+" "); println
   }
 }
