@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
-
+import static com.bytetrend.sandbox.java.challenge.FileStringSearch.TO_MB;
 public class SearchReport {
     private AtomicInteger totalFileCount = new AtomicInteger(0);
     private AtomicInteger deniedAccessFileCount = new AtomicInteger(0);
@@ -47,12 +47,19 @@ public class SearchReport {
     }
 
     void printReport() {
-        System.out.println(String.format("%20s: %d", "Time elapsed (seconds)", (end - start) / 1000));
+        int foundTextCount = results.values().stream().map(a -> (a.isPresent() ? a.get().getPostitions().size():0))
+                .reduce(0,((a,b)-> a + b));
+        long totalBytesSearched = results.values().stream().map(a -> (a.isPresent() ? a.get().getSize() : 0))
+                .reduce(0L, ((a, b) -> a + b));
+        System.out.println(String.format("%20s: %d - %-20s: %d", "Time elapsed (seconds)", (end - start) / 1000,
+                "Search Rate MB/sec: ",((totalBytesSearched/TO_MB)/((end-start)/1000))));
         System.out.println(String.format("%20s: %d", "Total files/directories found", totalFileCount.get()));
         System.out.println(String.format("%20s: %d", "Total files/directories un-accessible", deniedAccessFileCount.get()));
-        System.out.println(String.format("%20s: %d", "Total files searched", results.size()));
-        long totalBytesSearched = results.values().stream().map(a -> (a.isPresent() ? a.get().getSize() : 0)).reduce(0L, ((a, b) -> a + b));
-        System.out.println(String.format("%-20s: %d - %-20s: %d", "Files searched: ", results.keySet().stream().count(), "Total bytes searched ", totalBytesSearched));
+        System.out.println(String.format("%-20s: %d - %-20s: %d - %-20s: %d - %-20s: %d",
+                "Files searched: ", results.size(),
+                "Total MB searched ", totalBytesSearched/TO_MB,
+                "Text found: ",foundTextCount,
+                "Cores count ",Runtime.getRuntime().availableProcessors()));
         results.forEach((key, value) ->
                 value.ifPresent(x -> {
                     if (x.getPostitions().size() > 0)

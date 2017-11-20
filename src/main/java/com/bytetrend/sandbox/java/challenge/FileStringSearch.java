@@ -10,7 +10,7 @@ import java.util.concurrent.*;
 import static com.bytetrend.sandbox.java.challenge.FileSearch.indexesOf;
 
 public class FileStringSearch {
-    static private int TO_MB = 1024 * 1024;
+    static int TO_MB = 1024 * 1024;
     private ExecutorService executorService;
     private Path startFolder;
     private ConcurrentLinkedQueue<Future<?>> futuresList = new ConcurrentLinkedQueue<>();
@@ -37,7 +37,6 @@ public class FileStringSearch {
     }
 
     public void doWork() {
-        printMemoryFootprint();
         report.start();
         futuresList.add(executorService.submit(new FindFilesTask(startFolder)));
         while (futuresList.size() > 0) {
