@@ -1,11 +1,12 @@
 package com.bytetrend.sandbox.scala.challenge
 
 /**
+  * <tapad>
   * coderpad io
   * Created by db2admin on 17/10/20.
   */
 
-object Solution extends App {
+object MineField extends App {
   var mines = 0
 
   case class BoardSquare(x: Int, y: Int, hasMine: Boolean)

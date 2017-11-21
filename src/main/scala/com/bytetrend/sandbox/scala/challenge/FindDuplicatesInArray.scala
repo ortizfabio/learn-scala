@@ -1,8 +1,9 @@
 package com.bytetrend.sandbox.scala.challenge
 
-object BofA {
+object FindDuplicatesInArray {
 
   /**
+    * <BofA>
     * This function returns the duplicated element of an array of integers.
     * This is done by creating a new collection of pairs of two elements which
     * generates a n x n operation. It then filters the ones for which the elements
@@ -33,6 +34,10 @@ object BofA {
     */
   def findDuplicate2(array: Array[Int]):Int ={
     array.sum - array.distinct.sum
+  }
+
+  def findDuplicates3(array: Array[Int]):Int = {
+    array.sum - array.foldLeft(Set[Int]())((set,int) => set + int).sum
   }
 
   def main(args:Array[String])={

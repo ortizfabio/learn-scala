@@ -1,6 +1,9 @@
 package com.bytetrend.sandbox.scala.challenge
 
-object Morgan {
+/**
+  * <Morgan>
+  */
+object ElectionWinner {
 
   def winner(events: List[Int]): Int = {
 
@@ -53,7 +56,7 @@ object Morgan {
 }
 
 
-object Morgan2 {
+object ElectionWinner2 {
 
   def winner(events: List[Int]): Int = {
 

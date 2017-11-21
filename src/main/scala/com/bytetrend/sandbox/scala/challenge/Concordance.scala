@@ -12,6 +12,7 @@ case class Stats(count: Int, paragraph: List[Int]) {
 }
 
 /**
+  * <Bridewater>
   * Encapsulates reading a file that is located in the classpath of this project.
   */
 trait BufferedFileSource {

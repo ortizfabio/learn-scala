@@ -143,38 +143,75 @@ object SecondSolution extends App {
     else
       println("The door cannot be opened.")
 
-    def rebuildMap(char:Char,list:List[Int],bitMap: Map[Char, List[Int]]): Map[Char, List[Int]]={
-      val m = (bitMap - (char))
+    /**
+      * This method reassigns the list to a key in the given map, where the key is the given char.
+      * But if the list is empty then it removes the key,value from the map. Otherwise reinserts
+      * the char,list into the map.
+      *
+      * @param char
+      * @param list
+      * @param charToIndexListMap
+      * @return
+      */
+    def rebuildMap(char:Char,list:List[Int],charToIndexListMap: Map[Char, List[Int]]): Map[Char, List[Int]]={
+      val m = (charToIndexListMap - (char))
       if(!list.isEmpty)
         m + (char -> list)
       else
         m
     }
 
-    def search(indexList:List[Int],bitMap: Map[Char, List[Int]]): List[Int] = {
+    /**
+      * This method performs the actual search for the sequence of words.
+      * 1) takes the head (last processed word) of the indexList and gets
+      *    the word gets the last character in that word.
+      * 2) Using the char from 1) to find a list of words in the charToIndexListMap.
+      *    This list with word indexes will be used to recursively try to find the
+      *    word sequence that solves this puzzle.
+      * 3) The recursion is stopped when the list of words is equal to the available
+      *    words or there is no more indexes in the list.
+      * 4) rebuildMap is call to substract the current used lastchar index from the list
+      *
+      * @param indexList
+      * @param charToIndexListMap
+      * @return
+      */
+    def search(indexList:List[Int],charToIndexListMap: Map[Char, List[Int]]): List[Int] = {
       val lastChar = words(indexList.head).reverse.charAt(0)
-      bitMap.get(lastChar) match {
+      charToIndexListMap.get(lastChar) match {
         case Some(list) if(list.headOption != None) => {
           var endList = List.empty[Int]
+          //takeWhile is the equivalent of while/break. It will stop when we have the current sequence
+          // that is when the current list of words is the same size as the starting list of words.
           list.takeWhile(i => {
-            endList = search(i :: indexList,rebuildMap(lastChar,list.filter(_!=i),bitMap))
+            endList = search(i :: indexList,rebuildMap(lastChar,list.filter(_!=i),charToIndexListMap))
             endList.length != words.length
           })
           endList
         }
         case _ => {
-            indexList
+            indexList //If there is no more available words that start with char return the current list
         }
       }
     }
 
+    /**
+      * This function builds a map of Char and List[Int] where Char is the first letter
+      * in the words and the list contains the index on the words array where the word
+      * is located.
+      * It then calls search passing the index (in the words array) of the starting 
+      * word and the above build map.
+      * 
+      * @param index
+      * @return
+      */
     def run(index:Int): List[Int] = {
-      val bitMap: Map[Char, List[Int]] = words.zipWithIndex.filter(pair => pair._2 != index).foldLeft(Map.empty[Char, List[Int]])((map, wordIndexPair) => {
+      val charToIndexListMap: Map[Char, List[Int]] = words.zipWithIndex.filter(pair => pair._2 != index).foldLeft(Map.empty[Char, List[Int]])((map, wordIndexPair) => {
         val (word:String,index:Int) = wordIndexPair
         val indexList = map.getOrElse(word.charAt(0), List.empty[Int])
         map + (word.charAt(0) -> ( index :: indexList))
       })
-      search(List(index), bitMap)
+      search(List(index), charToIndexListMap)
     }
   }
 

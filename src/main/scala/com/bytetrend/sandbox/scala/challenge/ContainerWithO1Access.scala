@@ -7,7 +7,7 @@ class ContainerWithO1Access {
     * Strings are stored in this map and an integer index is
     * assigned which it is the location in the complement array.
     * The complement array with the index allows the getRandom method
-    * to be accessed in O(1)
+    * to be accessed in O(1) <Bloomberg>
     *
     */
   val myMap = scala.collection.mutable.HashMap[String, Int]()
@@ -59,7 +59,7 @@ class ContainerWithO1Access {
 
   def getRandom(): Option[String] = {
     var i = 0
-    var next = scala.util.Random.nextInt(myArray.size - 1)
+    var next = scala.util.Random.nextInt(myArray.size)
     var str: Option[String] = None
     while (str == None && i < myArray.size) {
       str = myArray(next)

@@ -2,6 +2,9 @@ package com.bytetrend.sandbox.scala.challenge
 
 import scala.collection.mutable
 
+/**
+  * <Bridgewater>
+  */
 object BlobBoundary extends App {
   implicit def int2boolean(b: Int) = if (b == 0) false else true
 

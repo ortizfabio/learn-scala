@@ -1,10 +1,8 @@
 package com.bytetrend.sandbox.scala.algo
 
-import scala.collection.mutable
-import scala.collection.mutable.Builder
-
 
 /**
+  * <BoA>
   * Print duplicates in a list with its count.
   */
 object FindDuplicatesInAList extends App {

@@ -1,7 +1,10 @@
 package com.bytetrend.sandbox.scala.challenge
 
 
-object Bloomberg extends App {
+/**
+  * <Bloomberg>
+  */
+object CountConsecutiveEqualCharacters extends App {
   // This is the text editor interface.
   // Anything you type or change here will be seen by the other person in real time.
   // To execute Scala, Do not remove the object named Solution that extends App.
@@ -56,7 +59,7 @@ object Bloomberg2 extends App {
 
   def process(input: String): Unit = {
 
-    val dup = input.toList.foldLeft(new ArrayBuffer[(Char, Int)]()) { case (list, char) => count(list,char)
+    val dup:ArrayBuffer[(Char, Int)] = input.toList.foldLeft(new ArrayBuffer[(Char, Int)]()) { case (list, char) => count(list,char)
     }
 
     println(dup.map(x => s"${x._2} ${x._1}").mkString(", "))
@@ -64,15 +67,5 @@ object Bloomberg2 extends App {
 
   process("aaaabbbbbcddaaabb")
 
-  class Container {
-    val mySet = scala.collection.mutable.HashSet[String]()
-
-
-    def add(s : String) = mySet += s
-
-    def remove(s: String) = mySet -= s
-
-    def getRandom():String = mySet.toVector(scala.util.Random.nextInt(mySet.size - 1))
-  }
 
 }
