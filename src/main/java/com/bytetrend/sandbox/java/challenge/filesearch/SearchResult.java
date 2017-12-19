@@ -1,4 +1,4 @@
-package com.bytetrend.sandbox.java.challenge;
+package com.bytetrend.sandbox.java.challenge.filesearch;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.bytetrend.sandbox.java.challenge;
+package com.bytetrend.sandbox.java.challenge.filesearch;
 
 import java.io.FileInputStream;
 import java.io.IOException;

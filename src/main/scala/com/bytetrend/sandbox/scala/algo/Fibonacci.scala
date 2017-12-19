@@ -1,7 +1,6 @@
 
 package com.bytetrend.sandbox.scala.algo
 
-import scala.annotation.tailrec
 import scala.collection.immutable.Stream.consWrapper
 
 /**
@@ -54,7 +53,6 @@ object Fibonacci {
         prev = fibonacci
       }
       fibonacci
-
   }
 
 
@@ -75,6 +73,6 @@ object Fibonacci {
     print("fib3 "); for(j <- 0 to 10) print(fib3(j)+" "); println
     print("fib4 "); for(j <- 0 to 10) print(fib4(j)+" "); println
     print("fib5 "); for(j <- 0 to 10) print(fib5(j)+" "); println
-  }
+   }
 
 }

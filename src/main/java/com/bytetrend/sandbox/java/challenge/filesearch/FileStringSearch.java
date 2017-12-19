@@ -1,4 +1,4 @@
-package com.bytetrend.sandbox.java.challenge;
+package com.bytetrend.sandbox.java.challenge.filesearch;
 
 import java.io.File;
 import java.io.IOException;
@@ -7,8 +7,11 @@ import java.util.Optional;
 import java.util.Queue;
 import java.util.concurrent.*;
 
-import static com.bytetrend.sandbox.java.challenge.FileSearch.indexesOf;
+import static com.bytetrend.sandbox.java.challenge.filesearch.FileSearch.indexesOf;
 
+/**
+ * <deutsche>
+ */
 public class FileStringSearch {
     static int TO_MB = 1024 * 1024;
     private ExecutorService executorService;

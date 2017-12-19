@@ -1,5 +1,4 @@
-package com.bytetrend.sandbox.scala.challenge
-
+package com.bytetrend.sandbox.scala.hackerrank
 
 import scala.collection.mutable.ListBuffer
 
@@ -56,7 +55,7 @@ tire
     list
   }
 
-/** This solution does not work second does */
+  /** This solution does not work second does */
   def solution(list: ListBuffer[(Char, Char)]) {
     var found = false
     var count = 0
@@ -130,19 +129,6 @@ object SecondSolution extends App {
 
   def solve(words: Array[String]): Unit = {
 
-    var result: List[Int] = List.empty
-    //Prime the search by taking the first word and looping thru all unless one is found
-    //The solution returned should have a length equal to the list of all words.
-    (0 until words.length).takeWhile(i =>  {
-      result = run(i)
-      result.length != words.length
-    })
-
-    if ( result.length == words.length)
-      println(s"Ordering is possible. ${result.reverse.foreach(x => print(s" ${words(x)} "))}")
-    else
-      println("The door cannot be opened.")
-
     /**
       * This method reassigns the list to a key in the given map, where the key is the given char.
       * But if the list is empty then it removes the key,value from the map. Otherwise reinserts
@@ -153,9 +139,9 @@ object SecondSolution extends App {
       * @param charToIndexListMap
       * @return
       */
-    def rebuildMap(char:Char,list:List[Int],charToIndexListMap: Map[Char, List[Int]]): Map[Char, List[Int]]={
+    def rebuildMap(char: Char, list: List[Int], charToIndexListMap: Map[Char, List[Int]]): Map[Char, List[Int]] = {
       val m = (charToIndexListMap - (char))
-      if(!list.isEmpty)
+      if (!list.isEmpty)
         m + (char -> list)
       else
         m
@@ -164,33 +150,33 @@ object SecondSolution extends App {
     /**
       * This method performs the actual search for the sequence of words.
       * 1) takes the head (last processed word) of the indexList and gets
-      *    the word gets the last character in that word.
+      * the word gets the last character in that word.
       * 2) Using the char from 1) to find a list of words in the charToIndexListMap.
-      *    This list with word indexes will be used to recursively try to find the
-      *    word sequence that solves this puzzle.
+      * This list with word indexes will be used to recursively try to find the
+      * word sequence that solves this puzzle.
       * 3) The recursion is stopped when the list of words is equal to the available
-      *    words or there is no more indexes in the list.
+      * words or there is no more indexes in the list.
       * 4) rebuildMap is call to substract the current used lastchar index from the list
       *
       * @param indexList
       * @param charToIndexListMap
       * @return
       */
-    def search(indexList:List[Int],charToIndexListMap: Map[Char, List[Int]]): List[Int] = {
+    def search(indexList: List[Int], charToIndexListMap: Map[Char, List[Int]]): List[Int] = {
       val lastChar = words(indexList.head).reverse.charAt(0)
       charToIndexListMap.get(lastChar) match {
-        case Some(list) if(list.headOption != None) => {
+        case Some(list) if (list.headOption != None) => {
           var endList = List.empty[Int]
           //takeWhile is the equivalent of while/break. It will stop when we have the current sequence
           // that is when the current list of words is the same size as the starting list of words.
           list.takeWhile(i => {
-            endList = search(i :: indexList,rebuildMap(lastChar,list.filter(_!=i),charToIndexListMap))
+            endList = search(i :: indexList, rebuildMap(lastChar, list.filter(_ != i), charToIndexListMap))
             endList.length != words.length
           })
           endList
         }
         case _ => {
-            indexList //If there is no more available words that start with char return the current list
+          indexList //If there is no more available words that start with char return the current list
         }
       }
     }
@@ -201,25 +187,38 @@ object SecondSolution extends App {
       * is located.
       * It then calls search passing the index (in the words array) of the starting 
       * word and the above build map.
-      * 
+      *
       * @param index
       * @return
       */
-    def run(index:Int): List[Int] = {
+    def run(index: Int): List[Int] = {
       val charToIndexListMap: Map[Char, List[Int]] = words.zipWithIndex.filter(pair => pair._2 != index).foldLeft(Map.empty[Char, List[Int]])((map, wordIndexPair) => {
-        val (word:String,index:Int) = wordIndexPair
+        val (word: String, index: Int) = wordIndexPair
         val indexList = map.getOrElse(word.charAt(0), List.empty[Int])
-        map + (word.charAt(0) -> ( index :: indexList))
+        map + (word.charAt(0) -> (index :: indexList))
       })
       search(List(index), charToIndexListMap)
     }
+
+    var result: List[Int] = List.empty
+    //Prime the search by taking the first word and looping thru all unless one is found
+    //The solution returned should have a length equal to the list of all words.
+    (0 until words.length).takeWhile(i => {
+      result = run(i)
+      result.length != words.length
+    })
+
+    if (result.length == words.length)
+      println(s"Ordering is possible. ${result.reverse.foreach(x => print(s" ${words(x)} "))}")
+    else
+      println("The door cannot be opened.")
+
   }
 
-  solve(Array[String]( "tuba", "error", "route", "exit", "time", "event", "adam"))
+  solve(Array[String]("tuba", "error", "route", "exit", "time", "event", "adam"))
   solve(Array[String]("river", "error", "eat", "tire"))
   solve(Array[String]("route", "error", "eat", "event", "time", "exit", "tuba", "adam"))
   solve(Array[String]("apple", "lion", "nile", "animal"))
-
 
 
 }

@@ -1,11 +1,11 @@
-package com.bytetrend.sandbox.java.challenge;
+package com.bytetrend.sandbox.java.challenge.filesearch;
 
 import java.nio.file.Path;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
-import static com.bytetrend.sandbox.java.challenge.FileStringSearch.TO_MB;
+import static com.bytetrend.sandbox.java.challenge.filesearch.FileStringSearch.TO_MB;
 public class SearchReport {
     private AtomicInteger totalFileCount = new AtomicInteger(0);
     private AtomicInteger deniedAccessFileCount = new AtomicInteger(0);

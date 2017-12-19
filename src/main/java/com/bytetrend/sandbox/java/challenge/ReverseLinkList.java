@@ -1,5 +1,8 @@
-package com.bytetrend.sandbox.java.algo;
+package com.bytetrend.sandbox.java.challenge;
 
+/**
+ * <deutsche>
+ */
 public class ReverseLinkList {
 
     static class Node {
