@@ -1,7 +1,9 @@
 package com.bytetrend.sandbox.scala.challenge
 
 
-
+/**
+  * http://www.geeksforgeeks.org/design-a-data-structure-that-supports-insert-delete-search-and-getrandom-in-constant-time/
+  */
 class ContainerWithO1Access {
   /**
     * Strings are stored in this map and an integer index is

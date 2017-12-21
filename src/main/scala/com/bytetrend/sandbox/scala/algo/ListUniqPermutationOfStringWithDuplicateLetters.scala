@@ -29,37 +29,53 @@ object ListUniqPermutationOfStringWithDuplicateLetters extends App {
     * @param args
     */
   override def main(args: Array[String]): Unit = {
+    println("Enter character sequence with duplicate characters ie: banana")
     val str = (new java.util.Scanner(System.in)).nextLine
-    val aList = permutations(str.toCharArray).toList.sorted
-    aList.foreach(x => println(x.mkString(",")))
+      if (str.isEmpty) println("Nothing to permute.")
+      else {
+        val aList:List[String] = new PermutationsItr(str.toCharArray).toList.sorted
+        prettyPrint(aList)
+      }
   }
 
-  def permutations(seq: Array[Char]): Iterator[Array[Char]] =
-    if (seq.isEmpty) Iterator(seq)
-    else new PermutationsItr(seq)
+  /**
+    * Prints the result in a matrix format with a maximum width of 75 chars
+    * @param aList
+    */
+  def prettyPrint(aList: List[String]) = println(aList.foldLeft(new StringBuilder)((sb: StringBuilder, str: String) => {
+    if (sb.length + str.length > 75) {
+      println(sb)
+      sb.clear()
+    } else {
+      sb.append(" ")
+    }
+    sb.append(new String(str))
+  }).toString())
 
-  private class PermutationsItr(seq: Array[Char]) extends AbstractIterator[Array[Char]] {
+
+
+  private class PermutationsItr(seq: Array[Char]) extends AbstractIterator[String] {
     private[this] val (elms, idxs) = init()
-    println("idxs0 "+idxs.mkString)
+    println("idxs0 " + idxs.mkString)
     private var _hasNext = true
 
     def hasNext = _hasNext
 
-    def next(): Array[Char] = {
+    def next(): String = {
       if (!hasNext)
         Iterator.empty.next()
 
       val forcedElms = new mutable.ArrayBuffer[Char](elms.size) ++= elms
-      println("forcedElms "+forcedElms.mkString)
-      val result:Array[Char] = ((new ArrayBuilder.ofChar) ++= forcedElms).result()
-      println("result1 "+result.mkString)
+      println("forcedElms " + forcedElms.mkString)
+      val result: Array[Char] = ((new ArrayBuilder.ofChar) ++= forcedElms).result()
+      println("result1 " + result.mkString)
       var i = idxs.length - 2
       while (i >= 0 && idxs(i) >= idxs(i + 1))
         i -= 1
 
       if (i < 0) {
         _hasNext = false
-      }else {
+      } else {
         var j = idxs.length - 1
         while (idxs(j) <= idxs(i)) j -= 1
         swap(i, j)
@@ -70,10 +86,10 @@ object ListUniqPermutationOfStringWithDuplicateLetters extends App {
           swap(i + k, idxs.length - k)
           k += 1
         }
-        println("idxs"+i+" "+idxs.mkString)
+        println("idxs" + i + " " + idxs.mkString)
       }
-      println("result2 "+result.mkString)
-      result
+      println("result2 " + result.mkString)
+      new String(result)
     }
 
     private def swap(i: Int, j: Int) {

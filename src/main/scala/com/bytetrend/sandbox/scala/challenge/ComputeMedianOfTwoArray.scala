@@ -23,12 +23,15 @@ object ComputeMedianOfTwoArray extends App {
     var rightIndex = -1
     for (i <- 0 until maxLength) {
 //      println(s"$i $beforeLast $last")
+      //If there is more elements in the left array and (no more elements in the right
+      // or left is less than the right element
       if (leftIndex < leftA.length - 1
         && ( rightIndex+1 >= rightA.length || leftA(leftIndex+1) < rightA(rightIndex + 1))) {
         leftIndex = leftIndex + 1
         beforeLast = last
         last = leftA(leftIndex)
       } else {
+        //There are elements in the right and it is smaller than the left
         rightIndex = rightIndex + 1
         beforeLast = last
         last = rightA(rightIndex)
