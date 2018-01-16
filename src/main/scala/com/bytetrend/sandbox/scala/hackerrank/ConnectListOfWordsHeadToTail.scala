@@ -4,7 +4,7 @@ import scala.collection.mutable.ListBuffer
 
 /**
   * http://www.spoj.com/problems/WORDS1/
-  * Test data https://codeassign.com/groups/13/problems/26
+  * FindStringInBoard data https://codeassign.com/groups/13/problems/26
   *
   * Some of the secret doors contain a very interesting word puzzle.
   * The team of archaeologists has to solve it to open that doors. Because

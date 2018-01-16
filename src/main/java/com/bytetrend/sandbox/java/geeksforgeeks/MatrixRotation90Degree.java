@@ -55,7 +55,7 @@ class MatrixRotation90Degree
     public static void main (String[] args)
     {
 /*
-        // Test Case 1
+        // FindStringInBoard Case 1
         int mat[][] =
                 {
                         {1, 2, 3, 4},

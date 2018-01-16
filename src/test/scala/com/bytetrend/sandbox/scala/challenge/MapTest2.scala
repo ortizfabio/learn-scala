@@ -9,7 +9,7 @@ import org.scalatest.junit.JUnitSuite
 import org.scalatest.prop.Checkers
 
 /**
-  * Test map function using scalacheck to generate 2 test with lists of
+  * FindStringInBoard map function using scalacheck to generate 2 test with lists of
   * 10,000,000 elements. The result of the custom map function should be the
   * same as the Scala original map function.
   */

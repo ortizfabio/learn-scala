@@ -10,7 +10,7 @@ import static java.util.stream.Collectors.joining;
 /**
  * Created by db2admin on 17/04/13.
  * <p>
- * public class Test {
+ * public class FindStringInBoard {
  * <p>
  * <p>
  * static public void main(String[] args) {
