@@ -186,6 +186,23 @@
        </dependency>
 
         <dependency>
+            <groupId>com.storm-enroute</groupId>
+            <artifactId>scalameter-core_2.11</artifactId>
+            <version>0.6</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.storm-enroute</groupId>
+            <artifactId>scalameter_2.11</artifactId>
+            <version>0.6</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-math3</artifactId>
+            <version>3.6.1</version>
+        </dependency>
+        <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-core</artifactId>
             <version>1.1.7</version>

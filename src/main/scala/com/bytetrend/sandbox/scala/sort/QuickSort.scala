@@ -76,13 +76,16 @@ object QuickSort extends App {
 
   def quicksort(xs: Array[Int]) {
     def swap(i: Int, j: Int) {
+      println(s" i=${i} j=${j}  xs(i)=${xs(i)} xs(j)=${xs(j)}")
       val t = xs(i); xs(i) = xs(j); xs(j) = t
+      println(s"${xs.mkString(",")}")
     }
     def sort1(l: Int, r: Int) {
       val pivot = xs((l + r) / 2)
       var i = l
       var j = r
-      while (i <= j) {
+      println(s"left=${l} right=${r} pivot=${pivot} @ ${(l + r) / 2} ${xs.mkString(",")}")
+      while (i < j) {
         while (xs(i) < pivot) i += 1
         while (xs(j) > pivot) j -= 1
         if (i <= j) {
