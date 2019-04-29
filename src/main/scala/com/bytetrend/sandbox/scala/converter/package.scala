@@ -10,7 +10,7 @@ import scala.language.reflectiveCalls
 
 package object converter {
 
-  private[dsl] def isNumeric(input: String): Boolean = input.forall(_.isDigit)
+  private[converter] def isNumeric(input: String): Boolean = input.forall(_.isDigit)
 
   /**
     * Maps strings to JSON values.
@@ -21,13 +21,13 @@ package object converter {
     * @param s a string value to be processed.
     * @return a JSON string representation
     */
-  private[dsl] def jsonString(s: String): String = s match {
+  private[converter] def jsonString(s: String): String = s match {
     case s if (s == null || s.isEmpty) => "null"
     case s if (isNumeric(s)) => s
     case _ => s""""${s}""""
   }
 
-  private[dsl] def jsonValue(s: String): Any = s match {
+  private[converter] def jsonValue(s: String): Any = s match {
     case s if (s == null || s.isEmpty) => null
     case s if (isNumeric(s)) => s
     case _ => s""""${s}""""
@@ -44,7 +44,7 @@ package object converter {
     * @param body   a sequence of strings with field values.
     * @return a sequence of strings that represent JSON objects
     */
-  private[dsl] def makeJsonString(header: Seq[String], body: Seq[String]): String = {
+  private[converter] def makeJsonString(header: Seq[String], body: Seq[String]): String = {
     "{ " + (header zip body).map(x => s""" "${x._1}" : ${jsonString(x._2)} """).mkString(",") + " }"
   }
 
@@ -55,11 +55,11 @@ package object converter {
     * @param body   a JSONObject as
     * @return
     */
-  private[dsl] def makeJsonObject(header: Seq[String], body: Seq[String]): JSONObject = {
+  private[converter] def makeJsonObject(header: Seq[String], body: Seq[String]): JSONObject = {
     JSONObject((header zip body).map(x => (x._1 -> jsonValue(x._2))).toMap)
   }
 
-  private[dsl] def using[A <: {def close() : Unit}, B](resource: A)(f: A => B): B =
+  private[converter] def using[A <: {def close() : Unit}, B](resource: A)(f: A => B): B =
     try {
       f(resource)
     } finally {
@@ -74,7 +74,7 @@ package object converter {
     * @param path a path to a CSV file
     * @return a pair of sequences one with the title and
     */
-  private[dsl] def fromCsv(path: String): (Seq[String], Seq[Seq[String]]) = {
+  private[converter] def fromCsv(path: String): (Seq[String], Seq[Seq[String]]) = {
 
     // each row is an array of strings (the columns in the csv file)
     val rows = ArrayBuffer[Seq[String]]()

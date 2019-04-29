@@ -1,6 +1,6 @@
 package com.bytetrend.sandbox.scala.matching
 
-import java.util
+import java.util.TreeMap
 import java.util.{List => uList}
 import java.util.function.BiFunction
 
@@ -11,6 +11,6 @@ import java.util.function.BiFunction
   */
 object MathDsl {
   //  def scanLeft[A](inp: Array[A],)
-  val collection = new util.TreeMap[String, _ <: Object]()
+  val collection = new TreeMap[String,Object]
 
 }

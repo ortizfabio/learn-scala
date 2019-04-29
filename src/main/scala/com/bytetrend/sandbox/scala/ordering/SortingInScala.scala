@@ -47,4 +47,9 @@ object SortingInScala extends App {
   val persons = List(Person.curried("John")( "Smith")( 35), Person.tupled("John", "Steward", 20), Person("Mary", "Best", 33), Person("John", "Steward", 55))
   //sortBy (an attribute)
   println("sortBy "+persons.sortBy(_.age))
+
+  //Sort a list of tuples by second element descending and first ascending
+  val list = List((1975,3),(1933,2), (1922,1), (1945,4),(1937,2),  (1946,4), (1947,4), (1943,3),(1923,1),(1948,4))
+  println(list.toSeq.sortBy(r => (r._2, r._1))( Ordering.Tuple2(Ordering.Int.reverse, Ordering.Int) ))
+
 }
