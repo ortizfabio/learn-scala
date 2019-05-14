@@ -1,0 +1,100 @@
+package com.bytetrend.sandbox.scala.hackerrank
+
+import java.io.PrintWriter
+
+object SteadyGene3 {
+
+  // Complete the steadyGene function below.
+  def steadyGene(gene: String): Int = {
+import scala.math.max
+    import scala.collection.mutable.{Map => MMap}
+    import scala.math.min
+    println("|"+gene+"|")
+    val n = gene.length
+
+    def isSteady(mapCount: MMap[Char, Int]): Boolean = {
+      for (x <- mapCount)
+        if (x._2 > n / 4)
+          return false
+      true
+    }
+
+    val map = gene.foldLeft((MMap('C' -> 0, 'G' -> 0, 'A' -> 0, 'T' -> 0)))({
+      case (map, c: Char) => map(c) += 1
+        map
+    })
+    var (left, right, result) = (0, 0, Integer.MAX_VALUE)
+    while (right < n - 1) {
+      val rc = gene(right)
+      map(rc) = map(rc) - 1
+      right += 1
+      while (isSteady(map)) {
+        if(result > right - left){
+          val a = (Array.fill[String](n)(" ").mkString("").toCharArray).zipWithIndex.map(c => c._2.toString).toArray[String]
+          a(left) ="H"
+          a(right-1) = "T"
+          println("|"+a.mkString("")+"|")
+          println(gene.substring(max(0,left),max(0,right)))
+        }
+        result = min(result, right - left)
+        val lc = gene(left)
+        left += 1
+        map(lc) = map(lc) + 1
+      }
+    }
+    result
+  }
+
+
+  def main(args: Array[String]) {
+    val stdin = scala.io.StdIn
+    val printWriter = new PrintWriter(System.out)
+
+    val gene7 ="TGCATGCA"
+    val result7 = steadyGene(gene7)
+    printWriter.println(result7)
+    printWriter.flush()
+
+    val gene6 ="TTTTTTTT"
+    val result6 = steadyGene(gene6)
+    printWriter.println(result6)
+    printWriter.flush()
+
+    val gene5 ="GTGGCCCA"
+    val result5 = steadyGene(gene5)
+    printWriter.println(result5)
+    printWriter.flush()
+    // A=-4
+    // A=0 c=2 T=1 G=1
+
+    //i=0 j=6 5 == 5
+    val gene = "GAAATAAA"
+    val result = steadyGene(gene)
+    assert(result==5)
+    printWriter.println(result)
+    printWriter.flush()
+
+    //i=24 j=30 5 == 5|     |
+    val gene2 = "TGATGCCGTCCCCTCAACTTGAGTGCTCCTAATGCGTTGC"
+
+    //i=112 j=1507 1393 == 1393
+    //   val gene2 = "ACAAAAATAAACAAAAACAAAAAAAAAATAAATACAATAAAAAAAAAAAATGAAATACAACAACAAATAAAATAAAAACGACTAAAAAATAAAAAAAAAAAAAAAAAGAGTACTAAAAAAAAAAAAAAAAAATAAAAAAAAAAAAAACACAATCAAAATAAACAAAAAAAAAAAAACCAAAATAATCAACAAAAAAAAAAAAAACAAAAACAACAACAAACAAAAAAAAACACAAACAAAAAAAAAAAAAAAACAAAACAAACAAAAAAAAAAAAACAAAAAAACAAAAAAAAAAAAAAAAACAAAAAAAAAAATAAAAAAAAAAAAAAAAAAAAAACAAACAAAAAAAAAAAATACAAAAAGCTATAAAAAAAAAAAAATTAAAAAACAAAAAAAAATAAAAAAAAAAAAAAAAAAAAAAAATAAAAAAAAAAAAAAAAAAAAAATAAAAAAAAAAAAAAAAAAGAAAAACAAAAAAAAAAAAAAAAACAACCAAAAAACAAAAAAAAACTAAAAAAAAAAAAAAAAAAAAAAAAAAATAACAAAAAACACAAAAAAAAAAAAGAAAGAAAAAAAACACAAAAAAAAACAAACAAAAAAAAAAAAAAAAAAAGAAAACAAAAAAACAAAAAAAACAAAAAAAAAACAAAAATTGGACAAAAAAAAACAAAAAAAAAAAACAAAAAAAGTAAAACAAATAAAAAAACAAAAAAAACAAAAAAAAAAAAAAAAAACAAAAAAGAAACAAAAAACAAAAAAAAATAACAAAACCAAAAAACAAATAAAAAACAAAAAAAATAACACAAAAAAAAAAAGAAACAAAAAAAAAAAAAAAAAAAAAAATTATAAAAAAAAAAAAAAAACAAAAAAAAAAAAAACAAAAAAAAAAGGAAAAAAAAAAAAAAAAAAAAAAAAAAATAACTAAACAAAAAAAAACAAACAAAAAATCAAAAAAAAAAAAGAAAAAAGAATAAGCAACAAAAACACAAAAAAAAAAAAAAAAAAAAAAAACATAAACAATAATAAAAAAAAAACAAAAAAAACAAAAGAACAACAAAAAACAAAACTAAACAAATAAAAAAAAAAAAACAAAAACTACAAAAAAAAAAAGAAAAAAAAAGAAAAAAAAACAAATAAAAGAAAAAAAAAAAAAAAAAAAACACAAAAAAAAAAATAAAAAAAAAAAAAAAAACAAAATAAACAAAAACAAAGAAAAAAACAAACAAAAAAAAAAAACAAAAAACTAAAAACAAAAAAAAAACAAAACACAAAAAAAAAAAAAAATAAAAAAAAAACAAAAAAACAAAAAGGAAAAAAAAAAAAGAACAAAAAAAAAAACAACAGAAAAAAGAAAAGAAAAAAAAAAAAAGACCACAAAATAAAAAAAAACAACAAACAAAAAAAAACAAAACAAAAAAACGAACAAAAAAAACAAAAACAAAAAAAAAAAAAAAAAAAAAAAGGCAAAAACAAAAAAAACAAAACAAAACAAAAAAACAAAAAAAAATTAAGATAAAGAACAAAAAAAGAAGAGAAAAAATTAACAAAAAAAAAAAAATAAAAAATACAAAAAGAAATAAAAAATACAACACACAACAAAAACGAAAAAAAAAAAAAAAACACAAAATAGAAAAAAAAAAAAAACAAAAAAAAAAAAAAGAAAAAAACAAAAAAAAAAAAATAAAAAAAAACGACACAGAAACAAAAAATAACAAAAAAAAAAAAAATAAAAAAAAAACAAAAAAAAAACAAAAAATAAAAAAAAAAACAAACAAAAAAAAAAAAAAAATAAAAAAAAAAAAAGCAAAACATAAACAAGAAAAAAAAAAAAAGTACAAATAACAAAACAAAAAAGACACTAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAGAAAAAAAACCACAAAACAAAAAAATAAAGCAAAAAAAAAAAAAAAAAAAAAAAAAAAATAAATGAAAAAAAAAAGAAAACCAAAAAAATAAAAGA"
+    val result2 = steadyGene(gene2)
+    printWriter.println(result2)
+    printWriter.flush()
+    //assert(result2 == 1393)
+
+    val gene3 = "AAAACCCC"
+    val result3 = steadyGene(gene3)
+    printWriter.println(result3)
+    printWriter.flush()
+
+    val gene4 = "AAAA"
+    val result4 = steadyGene(gene4)
+    printWriter.println(result4)
+    printWriter.flush()
+
+    printWriter.close()
+  }
+
+}
