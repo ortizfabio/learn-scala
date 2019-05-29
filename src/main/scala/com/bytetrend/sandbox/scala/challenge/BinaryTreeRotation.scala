@@ -35,10 +35,10 @@ object BinaryTreeRotation extends App {
     * @param maxItemWidth
     * @param padding
     */
-  def prettyPrint(buffer: ArrayBuffer[Array[Int]], levels: Int, maxItemCount: Int, maxItemWidth: Int, padding: Int): Unit = {
+  def prettyPrint[T](buffer: ArrayBuffer[Array[T]], levels: Int, maxItemCount: Int, maxItemWidth: Int, padding: Int): Unit = {
     val maxLineCharWidth = (maxItemCount - 1) * (maxItemWidth + padding)
 
-    def formatInt(i: Int, len: Int): String = {
+    def formatInt[T](i: T, len: Int): String = {
       val s = s"%-${maxItemWidth}s%${padding}s".format(i, " ")
       val width = (maxLineCharWidth / len) - s.length
       (" " * (width / 2)) + s + (" " * (width - (width / 2)))
@@ -101,11 +101,11 @@ object BinaryTreeRotation extends App {
     * @param array
     * @return
     */
-  def arrayToTree(array: Array[Int]): ArrayBuffer[Array[Int]] = {
+  def arrayToTree[T](array: Array[T]): ArrayBuffer[Array[T]] = {
     var levels = 0  //Number of levels in tree
     var totalItems = 0
     var itemsLastLevel = 1 //number of entries in the last level
-    val buffer: ArrayBuffer[Array[Int]] = ArrayBuffer()
+    val buffer: ArrayBuffer[Array[T]] = ArrayBuffer()
     while (totalItems < array.length) {
       //buffer(levels) = Array.ofDim(itemsLastLevel)
       //add to the buffer the count of items from previous level

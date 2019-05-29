@@ -4,6 +4,10 @@ package com.bytetrend.sandbox.scala.hackerrank
 import java.io.PrintWriter
 
 
+/**
+  * https://pastebin.com/AVPGcURN
+  * https://www.hackerrank.com/challenges/bear-and-steady-gene/problem
+  */
 object SteadyGene1 {
 
 
