@@ -52,7 +52,7 @@ class BinarySearchTree {
     }
 
     public void show() {
-        final int height = 6, width = 64;
+        final int height = 12, width = 64;
 
         int len = width * height * 2 + 2;
         StringBuilder sb = new StringBuilder(len);
