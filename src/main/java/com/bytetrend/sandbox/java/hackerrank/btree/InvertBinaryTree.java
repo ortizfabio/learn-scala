@@ -1,12 +1,6 @@
 package com.bytetrend.sandbox.java.hackerrank.btree;
 
 
-import com.bytetrend.sandbox.scala.collection.BinaryTree;
-
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-
 /**
  * https://www.hackerrank.com/challenges/binary-search-tree-lowest-common-ancestor/problem?h_r=internal-search
  */
@@ -51,8 +45,8 @@ class InvertBinaryTree {
 
     }
     
-    public static VisualizeTreeTree printTree(int[] a) {
-        VisualizeTreeTree bt = new VisualizeTreeTree();
+    public static VisualizeTree printTree(int[] a) {
+        VisualizeTree bt = new VisualizeTree();
         for (int i = 0; i < a.length; i++) {
             bt.add(a[i]);
         }
@@ -62,7 +56,7 @@ class InvertBinaryTree {
 
     public static void main(String[] args) {
         int[] input = new int[]{9, 7, 8, 5, 6, 4, 3, 1};
-        VisualizeTreeTree bt = printTree(input);
+        VisualizeTree bt = printTree(input);
         int t = 0;
         Node root = null;
         while (t < input.length) {

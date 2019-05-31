@@ -1,14 +1,14 @@
 package com.bytetrend.sandbox.java.hackerrank.btree;
 
 
-class VisualizeTreeTree {
+class VisualizeTree {
     private Node root;
 
     public Node getRoot(){
         return root;
     }
 
-    public VisualizeTreeTree add(int key) {
+    public VisualizeTree add(int key) {
         if (root == null)
             root = new Node(key);
         else {
