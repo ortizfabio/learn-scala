@@ -26,4 +26,29 @@ public class Node {
             print(l.right);
         }
     }
+
+
+
+    public static Node insert(Node root, int data) {
+        if (root == null) {
+            root = new Node(data);
+        } else {
+            if (data < root.data) {
+                if (root.left == null) {
+                    Node n = new Node(data);
+                    root.left = n;
+                } else {
+                    insert(root.left, data);
+                }
+            } else {
+                if (root.right == null) {
+                    Node n = new Node(data);
+                    root.right = n;
+                } else {
+                    insert(root.right, data);
+                }
+            }
+        }
+        return root;
+    }
 }

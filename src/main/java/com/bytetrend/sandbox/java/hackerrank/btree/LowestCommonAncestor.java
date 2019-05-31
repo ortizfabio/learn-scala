@@ -114,7 +114,7 @@ class LowestCommonAncestor {
 
 
     public static void printTree(int[] a) {
-        BinarySearchTree bt = new BinarySearchTree();
+        VisualizeTreeTree bt = new VisualizeTreeTree();
         for (int i = 0; i < a.length; i++) {
             bt.add(a[i]);
         }

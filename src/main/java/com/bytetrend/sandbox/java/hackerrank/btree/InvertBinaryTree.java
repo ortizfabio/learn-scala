@@ -51,8 +51,8 @@ class InvertBinaryTree {
 
     }
     
-    public static BinarySearchTree printTree(int[] a) {
-        BinarySearchTree bt = new BinarySearchTree();
+    public static VisualizeTreeTree printTree(int[] a) {
+        VisualizeTreeTree bt = new VisualizeTreeTree();
         for (int i = 0; i < a.length; i++) {
             bt.add(a[i]);
         }
@@ -62,7 +62,7 @@ class InvertBinaryTree {
 
     public static void main(String[] args) {
         int[] input = new int[]{9, 7, 8, 5, 6, 4, 3, 1};
-        BinarySearchTree bt = printTree(input);
+        VisualizeTreeTree bt = printTree(input);
         int t = 0;
         Node root = null;
         while (t < input.length) {
