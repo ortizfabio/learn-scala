@@ -10,12 +10,7 @@ import java.util.List;
  */
 class LowestCommonAncestor {
 
-    /*
-    class Node
-        int data;
-        Node left;
-        Node right;
-    */
+
     public static Node lca2(Node root, int v1, int v2) {
         // Write your code here.
         int largest = v1 > v2 ? v1 : v2;
@@ -123,7 +118,7 @@ class LowestCommonAncestor {
         for (int i = 0; i < a.length; i++) {
             bt.add(a[i]);
         }
-        bt.show();
+        bt.show(bt.getRoot());
     }
 
     public static void main(String[] args) {

@@ -1,26 +1,11 @@
 package com.bytetrend.sandbox.java.hackerrank.btree;
 
-public class VisualizeTree {
-    public static void main(String[] args) {
-        BinarySearchTree tree = new BinarySearchTree();
-
-        tree.add(100);
-        for (int i = 0; i < 20; i++)
-            tree.add((int) (Math.random() * 200));
-        tree.show();
-    }
-}
 
 class BinarySearchTree {
     private Node root;
 
-    private class Node {
-        private int key;
-        private Node left, right;
-
-        Node(int k) {
-            key = k;
-        }
+    public Node getRoot(){
+        return root;
     }
 
     public BinarySearchTree add(int key) {
@@ -30,12 +15,12 @@ class BinarySearchTree {
             Node n = root;
             Node parent;
             while (true) {
-                if (n.key == key)
+                if (n.data == key)
                     return this;
 
                 parent = n;
 
-                boolean goLeft = key < n.key;
+                boolean goLeft = key < n.data;
                 n = goLeft ? n.left : n.right;
 
                 if (n == null) {
@@ -51,7 +36,7 @@ class BinarySearchTree {
         return this;
     }
 
-    public void show() {
+    static public void show(Node root) {
         final int height = 12, width = 64;
 
         int len = width * height * 2 + 2;
@@ -63,12 +48,12 @@ class BinarySearchTree {
         System.out.println(sb);
     }
 
-    private void displayR(StringBuilder sb, int c, int r, int d, int w, Node n,
+    static private void displayR(StringBuilder sb, int c, int r, int d, int w, Node n,
                           String edge) {
         if (n != null) {
             displayR(sb, c - d, r + 2, d / 2, w, n.left, " /");
 
-            String s = String.valueOf(n.key);
+            String s = String.valueOf(n.data);
             int idx1 = r * w + c - (s.length() + 1) / 2;
             int idx2 = idx1 + s.length();
             int idx3 = idx1 - w;
