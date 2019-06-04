@@ -34,15 +34,18 @@ public class BinarySearchTreeHeight {
     }
 
     public static void main(String args[]) {
-        String input = "423176";
-        int T = 0;
-        Node root = null;
-        while (T < input.length()) {
-            int data = input.charAt(T);
-            root = insert(root, data);
-            T++;
-        }
+        int[] input = new int[]{4, 2, 3, 1, 7, 6};
+        VisualizeTree bt = new VisualizeTree(input);
+        Node root = bt.getRoot();
         int height = getHeight(root);
         System.out.println(height);
+
+        input = new int[]{8, 4, 9, 1, 2, 3, 6, 5};
+        bt = new VisualizeTree(input);
+        root = bt.getRoot();
+        height = getHeight(root);
+        System.out.println(height);
+
+
     }
 }

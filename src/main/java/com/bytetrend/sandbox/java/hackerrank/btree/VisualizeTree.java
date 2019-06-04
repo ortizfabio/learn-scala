@@ -1,11 +1,23 @@
 package com.bytetrend.sandbox.java.hackerrank.btree;
 
 
+import java.util.Arrays;
+
+import static com.bytetrend.sandbox.java.hackerrank.btree.BinarySearchTreeHeight.getHeight;
+
 class VisualizeTree {
+    static int numWidth = 6;
     private Node root;
 
-    public Node getRoot(){
+    public Node getRoot() {
         return root;
+    }
+
+    public VisualizeTree(int[] a) {
+        for (int i = 0; i < a.length; i++) {
+            add(a[i]);
+        }
+        show(this.getRoot());
     }
 
     public VisualizeTree add(int key) {
@@ -37,30 +49,37 @@ class VisualizeTree {
     }
 
     static public void show(Node root) {
-        final int height = 12, width = 64;
 
-        int len = width * height * 2 + 2;
-        StringBuilder sb = new StringBuilder(len);
-        for (int i = 1; i <= len; i++)
-            sb.append(i < len - 2 && i % width == 0 ? "\n" : ' ');
+        int height = getHeight(root);
+        int width = Math.max(2, (int) Math.pow(height, 2));
+        int linew = width * numWidth;
+        int len = linew * (height + 1);
 
-        displayR(sb, width / 2, 1, width / 4, width, root, " ");
-        System.out.println(sb);
+        char[] chars = new char[len+2];
+        Arrays.fill(chars,'-');
+        System.out.println(String.valueOf(chars).substring(0,linew));
+        Arrays.fill(chars, ' ');
+        StringBuilder sb = new StringBuilder(new String(chars));
+        if (root != null)
+            displayR(sb, 0, 0, linew - 1, linew, root);
+        String l = sb.toString();
+        for (int i = 0; i < len; i += linew)
+            System.out.println(l.substring(i,i+linew)+"\n");
+
     }
 
-    static private void displayR(StringBuilder sb, int c, int r, int d, int w, Node n,
-                          String edge) {
-        if (n != null) {
-            displayR(sb, c - d, r + 2, d / 2, w, n.left, " /");
+    static private void displayR(StringBuilder sb, int level, int start, int end, int lineWidth, Node n) {
+        String s = String.format("%" + numWidth + "d", n.data);
+        int idx1 = (level * lineWidth) + start + (end - start) / 2 - (s.length()) / 2;
+        int idx2 = idx1 + s.length();
+        sb.replace(idx1, idx2, s);
 
-            String s = String.valueOf(n.data);
-            int idx1 = r * w + c - (s.length() + 1) / 2;
-            int idx2 = idx1 + s.length();
-            int idx3 = idx1 - w;
-            if (idx2 < sb.length())
-                sb.replace(idx1, idx2, s).replace(idx3, idx3 + 2, edge);
-
-            displayR(sb, c + d, r + 2, d / 2, w, n.right, "\\ ");
+        if (n.left != null) {
+            displayR(sb, level + 1, start, start + (end - start) / 2, lineWidth, n.left);
         }
+        if (n.right != null) {
+            displayR(sb, level + 1, start + (end - start) / 2, end, lineWidth, n.right);
+        }
+
     }
 }
