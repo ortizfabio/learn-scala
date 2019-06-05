@@ -62,6 +62,15 @@ class LowestCommonAncestor {
             a[i] = t;
         }
     }
+
+    /**
+     * This is marked as the right answer one of the nodes can be the LCA.
+     *
+     * @param root
+     * @param v1
+     * @param v2
+     * @return
+     */
     static Node lca(Node root,int v1,int v2)
     {
         Node temp = root; // not necessary, just use root, just a leftover from a different attempt.
@@ -112,14 +121,6 @@ class LowestCommonAncestor {
         return current;
     }
 
-
-    public static void printTree(int[] a) {
-        Node bt = new Node(a[0]);
-        for (int i = 1; i < a.length; i++) {
-            bt.insert(a[i]);
-        }
-        bt.show();
-    }
 
     public static void main(String[] args) {
         int[] input = new int[]{9, 7, 8, 5, 6, 4, 3, 1};
@@ -177,7 +178,7 @@ class LowestCommonAncestor {
         min = 6;
         max = 7;
         ans = lca(root, min, max);
-        System.out.println(String.format("\n%d, %d -> %d == 8 %b", min, max, ans.data, 8 == ans.data));
+        System.out.println(String.format("\n%d, %d -> %d == 6 %b", min, max, ans.data, 6 == ans.data));
 
         reverse(input);
         bt = new VisualizeTree(input);
@@ -218,7 +219,7 @@ class LowestCommonAncestor {
         min = 6;
         max = 8;
         ans = lca(root, min, max);
-        System.out.println(String.format("\n%d, %d -> %d == 1 %b", min, max, ans.data, 1 == ans.data));
+        System.out.println(String.format("\n%d, %d -> %d == 6 %b", min, max, ans.data, 6 == ans.data));
 
         input = new int[]{5, 2, 7, 1, 6, 4, 3, 1,9,8};
         bt = new VisualizeTree(input);

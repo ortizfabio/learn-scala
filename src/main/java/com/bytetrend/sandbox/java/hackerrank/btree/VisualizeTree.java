@@ -6,7 +6,7 @@ import java.util.Arrays;
 import static com.bytetrend.sandbox.java.hackerrank.btree.BinarySearchTreeHeight.getHeight;
 
 class VisualizeTree {
-    static int numWidth = 6;
+    static int numWidth = 3;
     private Node root;
 
     public Node getRoot() {
@@ -56,9 +56,8 @@ class VisualizeTree {
         int len = linew * (height + 1);
 
         char[] chars = new char[len+2];
-        Arrays.fill(chars,'-');
-        System.out.println(String.valueOf(chars).substring(0,linew));
-        Arrays.fill(chars, ' ');
+
+        Arrays.fill(chars, '-');
         StringBuilder sb = new StringBuilder(new String(chars));
         if (root != null)
             displayR(sb, 0, 0, linew - 1, linew, root);
@@ -69,7 +68,7 @@ class VisualizeTree {
     }
 
     static private void displayR(StringBuilder sb, int level, int start, int end, int lineWidth, Node n) {
-        String s = String.format("%" + numWidth + "d", n.data);
+        String s = String.format("%" + numWidth + "d", n.data).trim();
         int idx1 = (level * lineWidth) + start + (end - start) / 2 - (s.length()) / 2;
         int idx2 = idx1 + s.length();
         sb.replace(idx1, idx2, s);
