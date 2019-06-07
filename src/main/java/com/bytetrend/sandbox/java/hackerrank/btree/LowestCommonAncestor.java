@@ -1,9 +1,10 @@
 package com.bytetrend.sandbox.java.hackerrank.btree;
 
-
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+
+import static com.bytetrend.sandbox.java.hackerrank.btree.Node.reverse;
 
 /**
  * https://www.hackerrank.com/challenges/binary-search-tree-lowest-common-ancestor/problem?h_r=internal-search
@@ -39,29 +40,6 @@ class LowestCommonAncestor {
         return lcd;
     }
 
-    public static Node insert(Node root, int data) {
-        if (root == null) {
-            return new Node(data);
-        } else {
-            Node cur;
-            if (data <= root.data) {
-                cur = insert(root.left, data);
-                root.left = cur;
-            } else {
-                cur = insert(root.right, data);
-                root.right = cur;
-            }
-            return root;
-        }
-    }
-
-    public static void reverse(int[] a) {
-        for (int i = 0; i < (a.length / 2); i++) {
-            int t = a[a.length - 1 - i];
-            a[a.length - 1 - i] = a[i];
-            a[i] = t;
-        }
-    }
 
     /**
      * This is marked as the right answer one of the nodes can be the LCA.
@@ -71,8 +49,7 @@ class LowestCommonAncestor {
      * @param v2
      * @return
      */
-    static Node lca(Node root,int v1,int v2)
-    {
+    static Node lca(Node root, int v1, int v2) {
         Node temp = root; // not necessary, just use root, just a leftover from a different attempt.
 
         while (true) {
@@ -106,12 +83,12 @@ class LowestCommonAncestor {
                 else return current;
                 continue;
             }
-            if(!goLeft&&!goRight){
-                if(current.right != null && current.data <  v1 && current.data < v2) {
+            if (!goLeft && !goRight) {
+                if (current.right != null && current.data < v1 && current.data < v2) {
                     current = current.right;
                     continue;
                 }
-                if(current.data > v1 && current.data > v2){
+                if (current.data > v1 && current.data > v2) {
                     current = current.left;
                     continue;
                 }
@@ -132,7 +109,7 @@ class LowestCommonAncestor {
         Node ans = lca(root, min, max);
         System.out.println(String.format("\n%d, %d -> %d == 5 %b", min, max, ans.data, 5 == ans.data));
 
-        input = new int[]{8, 4 ,9, 1, 2 ,3 ,6 ,5};
+        input = new int[]{8, 4, 9, 1, 2, 3, 6, 5};
         bt = new VisualizeTree(input);
         root = bt.getRoot();
         min = 1;
@@ -140,7 +117,7 @@ class LowestCommonAncestor {
         ans = lca(root, min, max);
         System.out.println(String.format("\n%d, %d -> %d == 1 %b", min, max, ans.data, 1 == ans.data));
 
-        input = new int[]{3,1,5,8,2,4,7,6,9,0};
+        input = new int[]{3, 1, 5, 8, 2, 4, 7, 6, 9, 0};
         bt = new VisualizeTree(input);
         root = bt.getRoot();
         min = 6;
@@ -221,7 +198,7 @@ class LowestCommonAncestor {
         ans = lca(root, min, max);
         System.out.println(String.format("\n%d, %d -> %d == 6 %b", min, max, ans.data, 6 == ans.data));
 
-        input = new int[]{5, 2, 7, 1, 6, 4, 3, 1,9,8};
+        input = new int[]{5, 2, 7, 1, 6, 4, 3, 1, 9, 8};
         bt = new VisualizeTree(input);
         root = bt.getRoot();
         min = 6;

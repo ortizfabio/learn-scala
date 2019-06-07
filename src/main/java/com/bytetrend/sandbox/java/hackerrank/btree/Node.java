@@ -4,7 +4,7 @@ import com.bytetrend.sandbox.java.hackerrank.btree.BinarySearchTreeHeight.*;
 import static com.bytetrend.sandbox.java.hackerrank.btree.BinarySearchTreeHeight.getHeight;
 
 public class Node {
-    Node left, right;
+    Node left, right,parent;
     int data;
 
     Node(int data) {
@@ -89,4 +89,11 @@ public class Node {
         }
     }
 
+    public static void reverse(int[] a) {
+        for (int i = 0; i < (a.length / 2); i++) {
+            int t = a[a.length - 1 - i];
+            a[a.length - 1 - i] = a[i];
+            a[i] = t;
+        }
+    }
 }
