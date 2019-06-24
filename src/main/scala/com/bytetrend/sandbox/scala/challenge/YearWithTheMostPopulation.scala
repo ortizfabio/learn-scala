@@ -34,7 +34,7 @@ object YearWithTheMostPopulation {
   def main(args: Array[String]) = {
     import mutable.Map
     // For each pair of birth/death create a map of year and count. Add one if birth year
-    // substract one if death year. Then sort by year ascending.
+    // substract one if death year. Then mergesort by year ascending.
     val result = bdYears.foldLeft(Map[Int, Int]().withDefaultValue(0))({ (map, pair) => {
       map(pair._1) += 1
       map(pair._2) -= 1

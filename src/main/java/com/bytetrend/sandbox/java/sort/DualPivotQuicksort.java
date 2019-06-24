@@ -11,36 +11,36 @@ public final class DualPivotQuicksort {
      */
 
     /**
-     * The maximum number of runs in merge sort.
+     * The maximum number of runs in merge mergesort.
      */
     private static final int MAX_RUN_COUNT = 67;
 
     /**
-     * The maximum length of run in merge sort.
+     * The maximum length of run in merge mergesort.
      */
     private static final int MAX_RUN_LENGTH = 33;
 
     /**
      * If the length of an array to be sorted is less than this
-     * constant, Quicksort is used in preference to merge sort.
+     * constant, Quicksort is used in preference to merge mergesort.
      */
     private static final int QUICKSORT_THRESHOLD = 286;
 
     /**
      * If the length of an array to be sorted is less than this
-     * constant, insertion sort is used in preference to Quicksort.
+     * constant, insertion mergesort is used in preference to Quicksort.
      */
     private static final int INSERTION_SORT_THRESHOLD = 47;
 
     /**
      * If the length of a byte array to be sorted is greater than this
-     * constant, counting sort is used in preference to insertion sort.
+     * constant, counting mergesort is used in preference to insertion mergesort.
      */
     private static final int COUNTING_SORT_THRESHOLD_FOR_BYTE = 29;
 
     /**
      * If the length of a short or char array to be sorted is greater
-     * than this constant, counting sort is used in preference to Quicksort.
+     * than this constant, counting mergesort is used in preference to Quicksort.
      */
     private static final int COUNTING_SORT_THRESHOLD_FOR_SHORT_OR_CHAR = 3200;
 
@@ -98,7 +98,7 @@ public final class DualPivotQuicksort {
 
             /*
              * The array is not highly structured,
-             * use Quicksort instead of merge sort.
+             * use Quicksort instead of merge mergesort.
              */
             if (++count == MAX_RUN_COUNT) {
                 sort(a, left, right, true);
@@ -161,11 +161,11 @@ public final class DualPivotQuicksort {
     private static void sort(int[] a, int left, int right, boolean leftmost) {
         int length = right - left + 1;
 
-        // Use insertion sort on tiny arrays
+        // Use insertion mergesort on tiny arrays
         if (length < INSERTION_SORT_THRESHOLD) {
             if (leftmost) {
                 /*
-                 * Traditional (without sentinel) insertion sort,
+                 * Traditional (without sentinel) insertion mergesort,
                  * optimized for server VM, is used in case of
                  * the leftmost part.
                  */
@@ -194,8 +194,8 @@ public final class DualPivotQuicksort {
                  * of sentinel, therefore this allows us to avoid the
                  * left range check on each iteration. Moreover, we use
                  * the more optimized algorithm, so called pair insertion
-                 * sort, which is faster (in the context of Quicksort)
-                 * than traditional implementation of insertion sort.
+                 * mergesort, which is faster (in the context of Quicksort)
+                 * than traditional implementation of insertion mergesort.
                  */
                 for (int k = left; ++left <= right; k = ++left) {
                     int a1 = a[k], a2 = a[left];
@@ -239,7 +239,7 @@ public final class DualPivotQuicksort {
         int e4 = e3 + seventh;
         int e5 = e4 + seventh;
 
-        // Sort these elements using insertion sort
+        // Sort these elements using insertion mergesort
         if (a[e2] < a[e1]) { int t = a[e2]; a[e2] = a[e1]; a[e1] = t; }
 
         if (a[e3] < a[e2]) { int t = a[e3]; a[e3] = a[e2]; a[e2] = t;
@@ -538,7 +538,7 @@ public final class DualPivotQuicksort {
 
             /*
              * The array is not highly structured,
-             * use Quicksort instead of merge sort.
+             * use Quicksort instead of merge mergesort.
              */
             if (++count == MAX_RUN_COUNT) {
                 sort(a, left, right, true);
@@ -601,11 +601,11 @@ public final class DualPivotQuicksort {
     private static void sort(long[] a, int left, int right, boolean leftmost) {
         int length = right - left + 1;
 
-        // Use insertion sort on tiny arrays
+        // Use insertion mergesort on tiny arrays
         if (length < INSERTION_SORT_THRESHOLD) {
             if (leftmost) {
                 /*
-                 * Traditional (without sentinel) insertion sort,
+                 * Traditional (without sentinel) insertion mergesort,
                  * optimized for server VM, is used in case of
                  * the leftmost part.
                  */
@@ -634,8 +634,8 @@ public final class DualPivotQuicksort {
                  * of sentinel, therefore this allows us to avoid the
                  * left range check on each iteration. Moreover, we use
                  * the more optimized algorithm, so called pair insertion
-                 * sort, which is faster (in the context of Quicksort)
-                 * than traditional implementation of insertion sort.
+                 * mergesort, which is faster (in the context of Quicksort)
+                 * than traditional implementation of insertion mergesort.
                  */
                 for (int k = left; ++left <= right; k = ++left) {
                     long a1 = a[k], a2 = a[left];
@@ -679,7 +679,7 @@ public final class DualPivotQuicksort {
         int e4 = e3 + seventh;
         int e5 = e4 + seventh;
 
-        // Sort these elements using insertion sort
+        // Sort these elements using insertion mergesort
         if (a[e2] < a[e1]) { long t = a[e2]; a[e2] = a[e1]; a[e1] = t; }
 
         if (a[e3] < a[e2]) { long t = a[e3]; a[e3] = a[e2]; a[e2] = t;
@@ -945,7 +945,7 @@ public final class DualPivotQuicksort {
      * @param right the index of the last element, inclusive, to be sorted
      */
     public static void sort(short[] a, int left, int right) {
-        // Use counting sort on large arrays
+        // Use counting mergesort on large arrays
         if (right - left > COUNTING_SORT_THRESHOLD_FOR_SHORT_OR_CHAR) {
             int[] count = new int[NUM_SHORT_VALUES];
 
@@ -1010,7 +1010,7 @@ public final class DualPivotQuicksort {
 
             /*
              * The array is not highly structured,
-             * use Quicksort instead of merge sort.
+             * use Quicksort instead of merge mergesort.
              */
             if (++count == MAX_RUN_COUNT) {
                 sort(a, left, right, true);
@@ -1073,11 +1073,11 @@ public final class DualPivotQuicksort {
     private static void sort(short[] a, int left, int right, boolean leftmost) {
         int length = right - left + 1;
 
-        // Use insertion sort on tiny arrays
+        // Use insertion mergesort on tiny arrays
         if (length < INSERTION_SORT_THRESHOLD) {
             if (leftmost) {
                 /*
-                 * Traditional (without sentinel) insertion sort,
+                 * Traditional (without sentinel) insertion mergesort,
                  * optimized for server VM, is used in case of
                  * the leftmost part.
                  */
@@ -1106,8 +1106,8 @@ public final class DualPivotQuicksort {
                  * of sentinel, therefore this allows us to avoid the
                  * left range check on each iteration. Moreover, we use
                  * the more optimized algorithm, so called pair insertion
-                 * sort, which is faster (in the context of Quicksort)
-                 * than traditional implementation of insertion sort.
+                 * mergesort, which is faster (in the context of Quicksort)
+                 * than traditional implementation of insertion mergesort.
                  */
                 for (int k = left; ++left <= right; k = ++left) {
                     short a1 = a[k], a2 = a[left];
@@ -1151,7 +1151,7 @@ public final class DualPivotQuicksort {
         int e4 = e3 + seventh;
         int e5 = e4 + seventh;
 
-        // Sort these elements using insertion sort
+        // Sort these elements using insertion mergesort
         if (a[e2] < a[e1]) { short t = a[e2]; a[e2] = a[e1]; a[e1] = t; }
 
         if (a[e3] < a[e2]) { short t = a[e3]; a[e3] = a[e2]; a[e2] = t;
@@ -1417,7 +1417,7 @@ public final class DualPivotQuicksort {
      * @param right the index of the last element, inclusive, to be sorted
      */
     public static void sort(char[] a, int left, int right) {
-        // Use counting sort on large arrays
+        // Use counting mergesort on large arrays
         if (right - left > COUNTING_SORT_THRESHOLD_FOR_SHORT_OR_CHAR) {
             int[] count = new int[NUM_CHAR_VALUES];
 
@@ -1482,7 +1482,7 @@ public final class DualPivotQuicksort {
 
             /*
              * The array is not highly structured,
-             * use Quicksort instead of merge sort.
+             * use Quicksort instead of merge mergesort.
              */
             if (++count == MAX_RUN_COUNT) {
                 sort(a, left, right, true);
@@ -1545,11 +1545,11 @@ public final class DualPivotQuicksort {
     private static void sort(char[] a, int left, int right, boolean leftmost) {
         int length = right - left + 1;
 
-        // Use insertion sort on tiny arrays
+        // Use insertion mergesort on tiny arrays
         if (length < INSERTION_SORT_THRESHOLD) {
             if (leftmost) {
                 /*
-                 * Traditional (without sentinel) insertion sort,
+                 * Traditional (without sentinel) insertion mergesort,
                  * optimized for server VM, is used in case of
                  * the leftmost part.
                  */
@@ -1578,8 +1578,8 @@ public final class DualPivotQuicksort {
                  * of sentinel, therefore this allows us to avoid the
                  * left range check on each iteration. Moreover, we use
                  * the more optimized algorithm, so called pair insertion
-                 * sort, which is faster (in the context of Quicksort)
-                 * than traditional implementation of insertion sort.
+                 * mergesort, which is faster (in the context of Quicksort)
+                 * than traditional implementation of insertion mergesort.
                  */
                 for (int k = left; ++left <= right; k = ++left) {
                     char a1 = a[k], a2 = a[left];
@@ -1623,7 +1623,7 @@ public final class DualPivotQuicksort {
         int e4 = e3 + seventh;
         int e5 = e4 + seventh;
 
-        // Sort these elements using insertion sort
+        // Sort these elements using insertion mergesort
         if (a[e2] < a[e1]) { char t = a[e2]; a[e2] = a[e1]; a[e1] = t; }
 
         if (a[e3] < a[e2]) { char t = a[e3]; a[e3] = a[e2]; a[e2] = t;
@@ -1892,7 +1892,7 @@ public final class DualPivotQuicksort {
      * @param right the index of the last element, inclusive, to be sorted
      */
     public static void sort(byte[] a, int left, int right) {
-        // Use counting sort on large arrays
+        // Use counting mergesort on large arrays
         if (right - left > COUNTING_SORT_THRESHOLD_FOR_BYTE) {
             int[] count = new int[NUM_BYTE_VALUES];
 
@@ -1908,7 +1908,7 @@ public final class DualPivotQuicksort {
                     a[--k] = value;
                 } while (--s > 0);
             }
-        } else { // Use insertion sort on small arrays
+        } else { // Use insertion mergesort on small arrays
             for (int i = left, j = i; i < right; j = ++i) {
                 byte ai = a[i + 1];
                 while (ai < a[j]) {
@@ -2059,7 +2059,7 @@ public final class DualPivotQuicksort {
 
             /*
              * The array is not highly structured,
-             * use Quicksort instead of merge sort.
+             * use Quicksort instead of merge mergesort.
              */
             if (++count == MAX_RUN_COUNT) {
                 sort(a, left, right, true);
@@ -2122,11 +2122,11 @@ public final class DualPivotQuicksort {
     private static void sort(float[] a, int left, int right, boolean leftmost) {
         int length = right - left + 1;
 
-        // Use insertion sort on tiny arrays
+        // Use insertion mergesort on tiny arrays
         if (length < INSERTION_SORT_THRESHOLD) {
             if (leftmost) {
                 /*
-                 * Traditional (without sentinel) insertion sort,
+                 * Traditional (without sentinel) insertion mergesort,
                  * optimized for server VM, is used in case of
                  * the leftmost part.
                  */
@@ -2155,8 +2155,8 @@ public final class DualPivotQuicksort {
                  * of sentinel, therefore this allows us to avoid the
                  * left range check on each iteration. Moreover, we use
                  * the more optimized algorithm, so called pair insertion
-                 * sort, which is faster (in the context of Quicksort)
-                 * than traditional implementation of insertion sort.
+                 * mergesort, which is faster (in the context of Quicksort)
+                 * than traditional implementation of insertion mergesort.
                  */
                 for (int k = left; ++left <= right; k = ++left) {
                     float a1 = a[k], a2 = a[left];
@@ -2200,7 +2200,7 @@ public final class DualPivotQuicksort {
         int e4 = e3 + seventh;
         int e5 = e4 + seventh;
 
-        // Sort these elements using insertion sort
+        // Sort these elements using insertion mergesort
         if (a[e2] < a[e1]) { float t = a[e2]; a[e2] = a[e1]; a[e1] = t; }
 
         if (a[e3] < a[e2]) { float t = a[e3]; a[e3] = a[e2]; a[e2] = t;
@@ -2586,7 +2586,7 @@ public final class DualPivotQuicksort {
 
             /*
              * The array is not highly structured,
-             * use Quicksort instead of merge sort.
+             * use Quicksort instead of merge mergesort.
              */
             if (++count == MAX_RUN_COUNT) {
                 sort(a, left, right, true);
@@ -2649,11 +2649,11 @@ public final class DualPivotQuicksort {
     private static void sort(double[] a, int left, int right, boolean leftmost) {
         int length = right - left + 1;
 
-        // Use insertion sort on tiny arrays
+        // Use insertion mergesort on tiny arrays
         if (length < INSERTION_SORT_THRESHOLD) {
             if (leftmost) {
                 /*
-                 * Traditional (without sentinel) insertion sort,
+                 * Traditional (without sentinel) insertion mergesort,
                  * optimized for server VM, is used in case of
                  * the leftmost part.
                  */
@@ -2682,8 +2682,8 @@ public final class DualPivotQuicksort {
                  * of sentinel, therefore this allows us to avoid the
                  * left range check on each iteration. Moreover, we use
                  * the more optimized algorithm, so called pair insertion
-                 * sort, which is faster (in the context of Quicksort)
-                 * than traditional implementation of insertion sort.
+                 * mergesort, which is faster (in the context of Quicksort)
+                 * than traditional implementation of insertion mergesort.
                  */
                 for (int k = left; ++left <= right; k = ++left) {
                     double a1 = a[k], a2 = a[left];
@@ -2727,7 +2727,7 @@ public final class DualPivotQuicksort {
         int e4 = e3 + seventh;
         int e5 = e4 + seventh;
 
-        // Sort these elements using insertion sort
+        // Sort these elements using insertion mergesort
         if (a[e2] < a[e1]) { double t = a[e2]; a[e2] = a[e1]; a[e1] = t; }
 
         if (a[e3] < a[e2]) { double t = a[e3]; a[e3] = a[e2]; a[e2] = t;

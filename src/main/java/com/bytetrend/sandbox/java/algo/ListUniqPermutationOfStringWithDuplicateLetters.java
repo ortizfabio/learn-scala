@@ -25,7 +25,7 @@ public class ListUniqPermutationOfStringWithDuplicateLetters {
      * The sequence after k-index a[2] to the final element is reversed. Because only one value lies after this index (the 3), the sequence remains unchanged in this instance. Thus the lexicographic successor of the initial state is permuted: [1,2,4,3].
      * Following this algorithm, the next lexicographic permutation will be [1,3,2,4], and the 24th permutation will be [4,3,2,1] at which point a[k] < a[k + 1] does not exist, indicating that this is the last permutation.
      * <p>
-     * This method uses about 3 comparisons and 1.5 swaps per permutation, amortized over the whole sequence, not counting the initial sort.[51]
+     * This method uses about 3 comparisons and 1.5 swaps per permutation, amortized over the whole sequence, not counting the initial mergesort.[51]
      *
      * @param s
      * @param consumer

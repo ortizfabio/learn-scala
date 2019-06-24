@@ -50,7 +50,7 @@ import scala.collection.mutable.ListBuffer
   * Explanation 0
   * *
   *
-  * There is only one query to perform. When we sort the subarray ranging from index to index , we get . We then print the element at index , which is
+  * There is only one query to perform. When we mergesort the subarray ranging from index to index , we get . We then print the element at index , which is
   * *
   * .
   * *
@@ -72,11 +72,11 @@ import scala.collection.mutable.ListBuffer
   * *
   * queries:
   * *
-  * When we sort the subarray ranging from index
+  * When we mergesort the subarray ranging from index
   * *
   * to index , we get
   * .
-  * When we sort the subarray of
+  * When we mergesort the subarray of
   * from index to index , we get
   * *
   * .

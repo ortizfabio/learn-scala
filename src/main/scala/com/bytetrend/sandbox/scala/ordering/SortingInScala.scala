@@ -12,7 +12,7 @@ object SortingInScala extends App {
   //############## sortWith ############
   // To use this function, we must pass another function (called "lt"). The argument function, specified as a lambda, must return true if the first argument is less than the second.
   //Here:
-  //  We sort a List of strings by their lengths. To come first, a string must have a smaller length (shortest are first).
+  //  We mergesort a List of strings by their lengths. To come first, a string must have a smaller length (shortest are first).
   //  Scala program that uses sortWith
 
   // Contains four strings of different lengths.
@@ -35,7 +35,7 @@ object SortingInScala extends App {
   //Define a function
   val sortByFunc: (String) => (Char,Char) = (x: String) => (x.charAt(1), x.charAt(0))
 
-  //Create a sort key. The second char is first and the first char second.
+  //Create a mergesort key. The second char is first and the first char second.
   // sortBy calls a function def fromLessThan[T](cmp: (T, T) => Boolean): Ordering[T]
   //it uses the function parameter to build an Ordering with type as the same as the
   //return of the function that has a s compare method using the function.

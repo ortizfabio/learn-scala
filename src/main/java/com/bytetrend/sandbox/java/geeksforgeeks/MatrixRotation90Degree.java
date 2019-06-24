@@ -9,8 +9,6 @@ class MatrixRotation90Degree
     // by 90 degrees in anti-clockwise direction
     static void rotateMatrix(int N, int mat[][])
     {
-        int i = 0;
-        int j = 0;
         int last = N -1;
         // Consider all squares one by one
         for (int x = 0; x < N / 2; x++)
