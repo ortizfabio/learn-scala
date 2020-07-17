@@ -1,54 +1,49 @@
-package com.bytetrend.sandbox.scala.algo
+package com.bytetrend.sandbox.scala
 
+object LongestPalindromeInString {
 
-object LongestPalindromeInString extends App {
+  import util.control.Breaks._
 
-  def find(input: Array[Char]): String = {
+  def findBiggestPalindromeSubstring(input: String): String = {
     var palindrome = ""
-    var tmp = ""
-    for (i <- 0 to input.length - 2) {
-      // Even palindrome when two consecutive characters are the same.
-      if (input(i) == input(i + 1)) {
-        var j = i
-        var k = i + 1
-        while (j >= 0 && k < input.length) {
-          if (input(j) == input(k)) {
-            tmp = input.mkString.substring(j, k + 1)
-            if (tmp.length > palindrome.length)
-              palindrome = tmp
-            j = j - 1
-            k = k + 1
-          }else{
-            j = -1
+    var tmpStr = ""
+    for (i <- 0 until input.length - 1) {
+      if (input.charAt(i) == input.charAt(i + 1)) {
+        breakable {
+          for (
+            //The operation will drop the tail of longer sequence either j or k
+            (j, k) <- (i to 0 by -1).zip(i + 1 until input.length)
+          ) {
+            if (input.charAt(j) == input.charAt(k)) {
+              tmpStr = input.substring(j, k + 1)
+              if (tmpStr.length > palindrome.length)
+                palindrome = tmpStr
+            } else break
           }
         }
-      }
-
-      // Odd palindrome when two characters around the current one are the same.
-      if (i > 0 && input(i - 1) == input(i + 1)) {
-        var j = i - 1
-        var k = i + 1
-        while (j >= 0 && k < input.length) {
-          if (input(j) == input(k)) {
-            tmp = input.mkString.substring(j, k + 1)
-            if (tmp.length > palindrome.length)
-              palindrome = tmp
-            j = j - 1
-            k = k + 1
-          }else{
-            j = -1
+        if (i > 0 && input.charAt(i - 1) == input.charAt(i + 1)) {
+          for (
+            (j, k) <- (i - 1 to 0 by -1).zip(i + 1 until input.length)
+          ) {
+            breakable {
+              if (input.charAt(j) == input.charAt(k)) {
+                tmpStr = input.substring(j, k + 1)
+                if (tmpStr.length > palindrome.length)
+                  palindrome = tmpStr
+              } else break
+            }
           }
-
         }
       }
     }
     palindrome
   }
 
-  val input = "aaabbaaaccdeqjncsdddmmmkkkmmmddd"
-  val answer = "dddmmmkkkmmmddd"
-
-  val resp = find(input.toCharArray)
-  System.out.println(resp == answer)
+  def main(args: Array[String]) = {
+    val input = "aaabbaaaccdeqjncsdddmmmkkkmmmddd";
+    val answer = "dddmmmkkkmmmddd";
+    val resp = findBiggestPalindromeSubstring(input)
+    println(s"$resp and expected answer $answer match=${answer.equals(resp)}")
+  }
 
 }

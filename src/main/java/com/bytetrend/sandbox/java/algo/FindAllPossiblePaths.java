@@ -52,6 +52,7 @@ public class FindAllPossiblePaths {
                 track[x][columnDim - 1] = 0;
             }
         }
+        printMatrix(track);
         //Setup the one before the bottom row
         for (int y = columnDim - 2; y > -1; y--) {
             if (map[rowDim - 1][y] == 1) {
@@ -60,6 +61,7 @@ public class FindAllPossiblePaths {
                 track[rowDim - 1][y] = 0;
             }
         }
+        printMatrix(track);
 
         //Now set the cells right and top from the two previous ones.
         for (int x = rowDim - 2; x > -1; x--) {

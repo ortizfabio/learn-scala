@@ -76,12 +76,9 @@ object TestPrimeFactor extends App {
     */
   object testPrimeFactor extends PrimeFactors
 
-  println(s"prime factors of 155 are $testPrimeFactor.primeFactors(155)")
-
-  println(s"prime factors of 512 are $testPrimeFactor.primeFactors(512)")
-
-  println(s"prime factors of 600 are $testPrimeFactor.primeFactors(600)")
-
-  println(s"prime factors of 29 are $testPrimeFactor.primeFactors(29)")
+  println(s"prime factors of 155 are ${testPrimeFactor.factors(155)}")
+  println(s"prime factors of 512 are ${testPrimeFactor.factors(512)}")
+  println(s"prime factors of 600 are ${testPrimeFactor.factors(600)}")
+  println(s"prime factors of 29 are ${testPrimeFactor.factors(29)}")
 
 }

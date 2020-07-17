@@ -5,6 +5,21 @@ import scala.collection.mutable
 
 /**
   * https://www.hackerrank.com/challenges/largest-rectangle
+  * Input:
+  * 8
+  * 1 2 3 4 5 3 3 2
+  * Output:
+  * 15
+  * Input:
+  * 5
+  * 1 2 3 4 5
+  * Output:
+  * 9
+  * Input:
+  * 5
+  * 5 4 3 2 1
+  * Output:
+  * 9
   */
 object LargestRectangle {
 
@@ -29,11 +44,11 @@ object LargestRectangle {
 
   def maxArea(implicit heights: Array[Int]): Int = {
     var area = 0
-    val (stack, index) = heights.foldLeft(((Stack[PositionHeight](), 0)))((x, y) => {
-      area = Math.max(area, calc(x._1, x._2, heights(x._2)))
-      ((x._1, x._2 + 1))
+    val (stack, _) = heights.foldLeft(((Stack[PositionHeight](), 0))){case((stk,index), h) => {
+      area = Math.max(area, calc(stk, index, h))
+      ((stk, index + 1))
     }
-    )
+    }
     //Need to calculate till one pass the end of the array to account for the last bar.
     area = Math.max(area, calc(stack,heights.length, 0))
     area

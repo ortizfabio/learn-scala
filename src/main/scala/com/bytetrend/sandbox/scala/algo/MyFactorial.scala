@@ -8,9 +8,10 @@ import scala.annotation.tailrec
 object MyFactorial {
 
   def factorial(n: Int): Int = {
+    @tailrec
     def factCalc(n: Int, fact: Int): Int = {
        n match {
-        case x if n <= 1 => fact
+        case x if x <= 1 => fact
         case _ => factCalc(n - 1, n * fact)
       }
     }
