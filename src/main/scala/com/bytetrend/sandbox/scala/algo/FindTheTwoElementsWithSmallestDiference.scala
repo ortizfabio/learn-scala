@@ -2,6 +2,9 @@ package com.bytetrend.sandbox.scala.algo
 
 import scala.util.Random
 
+/**
+  * https://www.careercup.com/question?id=5071329456291840
+  */
 object FindTheTwoElementsWithSmallestDiference extends App {
 
   var arr = Seq.fill(10)(Random.nextInt(100)).toArray
