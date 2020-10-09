@@ -1,9 +1,11 @@
 package com.bytetrend.sandbox.scala.algo
 
-import com.bytetrend.sandbox.scala.algo.CoinChange.Coin.Coin
+
+import com.bytetrend.sandbox.scala.algo.CoinChange2.Coin.Coin
 
 import scala.collection.mutable
-import scala.reflect.ClassTag
+
+
 
 /**
   * http://www.geeksforgeeks.org/dynamic-programming-set-7-coin-change/
@@ -37,12 +39,16 @@ object CoinChange {
 
   }
 
-  object Coin extends Enumeration {
-    type Coin = Value
-    val PENNY = Value(1, "P")
-    val NICKEL = Value(5, "N")
-    val DIME = Value(10, "D")
-    val QUARTER = Value(25, "Q")
+  def main(args: Array[String]): Unit = {
+    val arr = Array(1, 5, 10, 25)
+    println(s"$counter result is " + findChange(arr, arr.length - 1, 16, " "))
+  }
+
+}
+
+object CoinChange4 {
+  def main(args: Array[String]): Unit = {
+    println("count is " + findChange4(16).length)
   }
 
   def findChange4(target: Int): List[List[Int]] = {
@@ -61,8 +67,23 @@ object CoinChange {
     wallet.toList
   }
 
-  //    val combinations = Coin.values.toList.map(x => amount / x.id).map(x => if (x == 0) 1 else x).reduce(_ * _)
-  //val fourTuple = List.fill(combinations)(Coin.values.toList.map(_.id))
+}
+
+//    val combinations = Coin.values.toList.map(x => amount / x.id).map(x => if (x == 0) 1 else x).reduce(_ * _)
+//val fourTuple = List.fill(combinations)(Coin.values.toList.map(_.id))
+object CoinChange3 {
+
+  object Coin extends Enumeration {
+    type Coin = Value
+    val PENNY = Value(1, "P")
+    val NICKEL = Value(5, "N")
+    val DIME = Value(10, "D")
+    val QUARTER = Value(25, "Q")
+  }
+  def main(args: Array[String]): Unit = {
+    println("count is " + findChange3(16).length)
+
+  }
 
   def findChange3(amount: Int): List[List[Int]] = {
     var wallet = scala.collection.mutable.MutableList[List[Int]]()
@@ -79,6 +100,23 @@ object CoinChange {
       }
     }
     wallet.toList
+  }
+}
+
+object CoinChange2 {
+
+  object Coin extends Enumeration {
+    type Coin = Value
+    val PENNY = Value(1, "P")
+    val NICKEL = Value(5, "N")
+    val DIME = Value(10, "D")
+    val QUARTER = Value(25, "Q")
+  }
+
+  // def prod[T](lst: List[T], n: Int) = List.fill(n)(lst).flatten.combinations(n).flatMap(_.permutations)
+
+  def main(args: Array[String]): Unit = {
+    println("count is " + findChange2(16).length)
   }
 
   def findChange2(amount: Int): Seq[Seq[(Coin, Int)]] = {
@@ -116,24 +154,6 @@ object CoinChange {
     result
   }
 
-  def prod[T](lst: List[T], n: Int) = List.fill(n)(lst).flatten.combinations(n).flatMap(_.permutations)
-
-  //    val l1 = List("a", "b")
-  //    val l2 = List(1, 2)
-  //    println(prod(l2, l1.size).map(l1.zip(_)).mkString(" "))
-  //    val amount = 16
-  //    val l1:List[Coin.Value] = Coin.values.toList
-  //    val l2: List[Int] = l1.map(c => amount / c.id )
-  //    println(prod(l2, l1.size).map(l1.zip(_)).mkString(" "))
-  //
-  def main(args: Array[String]): Unit = {
-    //    val arr = Array(1, 5, 10, 25)
-    //   println(s"$counter result is " + findChange(arr, arr.length - 1, 16, " "))
-    //println("count is " + findChange4(16).length)
-    // println("count is " + findChange3(16).length)
-     println("count is " + findChange2(16).length)
-  }
-
-  def className[T](v: T)(implicit ev: ClassTag[T]) = ev.toString
+ // def className[T](v: T)(implicit ev: ClassTag[T]) = ev.toString
 
 }

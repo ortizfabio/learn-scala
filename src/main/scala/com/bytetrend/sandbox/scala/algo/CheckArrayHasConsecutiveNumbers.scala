@@ -39,7 +39,10 @@ trait CheckArrayHasConsecutiveNumbers {
     * is minimum element in array and n is the number of elements in array.
     * 2) All elements are distinct.
     * <p>
-    * In this method, the implementation we modify the input array arr[] to keep track of visited elements. The idea is to traverse the array and for each index i (where 0 <= i < n), make arr[arr[i] – min]] as a negative value. If we see a negative value again then there is repetition.
+    * In this method, the implementation we modify the input array arr[] to keep
+    * track of visited elements. The idea is to traverse the array and for each
+    * index i (where 0 <= i < n), make arr[arr[i] – min]] as a negative value.
+    * If we see a negative value again then there is repetition.
     * This method modifies the original array by replacing
     * numbers with the indexes according to the distance from
     * the minimum number starting with 1.
@@ -49,11 +52,13 @@ trait CheckArrayHasConsecutiveNumbers {
     *
     * @param arr
     * @return
-    */  def withoutAuxArray(arr: Array[Int]): Boolean = {
-    val (min, max) = arr.foldLeft((Integer.MAX_VALUE, Integer.MIN_VALUE))((a, b) => (if (b < a._1) b else a._1, if (b > a._2) b else a._2))
+    */
+  def withoutAuxArray(arr: Array[Int]): Boolean = {
+    val (min, max) = arr.foldLeft(
+      (Integer.MAX_VALUE, Integer.MIN_VALUE))(
+      (a, b) => (if (b < a._1) b else a._1, if (b > a._2) b else a._2))
     //Sequential integer array must have this condition
     if (arr.length == max - min + 1) {
-
       for (i <- 0 until arr.length) {
         var index = -1
         if (arr(i) < 0)
@@ -67,8 +72,8 @@ trait CheckArrayHasConsecutiveNumbers {
           return false
       }
       true
-    }else
-    false
+    } else
+      false
   }
 
   /**

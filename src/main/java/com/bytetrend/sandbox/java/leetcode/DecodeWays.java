@@ -37,6 +37,7 @@ public class DecodeWays {
             if (acc == 0)
                 acc = 1;
         }else{
+            //Ignore characer '0' there is no mapping for it.
             acc = numDecodings(chars, idx + 1, acc);
         }
         return acc;
@@ -44,7 +45,7 @@ public class DecodeWays {
 
 
     public static int numDecodings(String s) {
-        if(s == null || s.charAt(0) == '0')
+        if(s == null || s == "" || s.charAt(0) == '0')
             return  0;
         return numDecodings(s.toCharArray(),0,0);
     }
