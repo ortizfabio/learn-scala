@@ -10,7 +10,7 @@ import scala.collection.JavaConverters._
  * Created by ortizfabio on 5/30/2016.
  */
 class CallableVsRunnable {
-  val es = Executors.newFixedThreadPool(2);
+  val es = Executors.newFixedThreadPool(2)
   var futures = new ArrayList[MyCallable[Long]]()
 
   def submit: Unit = {

@@ -44,6 +44,31 @@ object CoffeeImplicits {
   */
 object CoffeeShop {
 
+  def temperatureOkay(water: Water): Future[Boolean] = Future {
+    (80 to 85).contains(water.temperature)
+  }
+
+  /**
+    * This reads nicely, but since a for comprehension is just another representation
+    * for nested flatMap calls, this means that the Future[Water] created in
+    * heatWater is only really instantiated after the Future[GroundCoffee]
+    * has completed successfully. You can check this by watching the sequential
+    * console output coming from the functions we implemented above.
+    *
+    * @return
+    */
+  def prepareCappuccinoSequentially(): Future[Cappuccino] = {
+
+    import com.bytetrend.sandbox.scala.concurrent.CoffeeImplicits.{combine, toCoffeBeans, toMilk}
+
+    for {
+      ground <- grind("arabica beans")
+      water <- heatWater(Water(20))
+      foam <- frothMilk("milk")
+      espresso <- brew(ground, water)
+    } yield combine(espresso, foam)
+  }
+
   def grind(beans: CoffeeBeans): Future[GroundCoffee] = {
     val f = Future[GroundCoffee] {
       println("start grinding...")
@@ -68,7 +93,6 @@ object CoffeeShop {
     f
   }
 
-
   def heatWater(water: Water): Future[Water] = {
     val f = Future[Water] {
       println("heating the water now")
@@ -90,31 +114,6 @@ object CoffeeShop {
       s"frothed $milk"
     }
     f
-  }
-
-  def temperatureOkay(water: Water): Future[Boolean] = Future {
-    (80 to 85).contains(water.temperature)
-  }
-
-  /**
-    * This reads nicely, but since a for comprehension is just another representation
-    * for nested flatMap calls, this means that the Future[Water] created in
-    * heatWater is only really instantiated after the Future[GroundCoffee]
-    * has completed successfully. You can check this by watching the sequential
-    * console output coming from the functions we implemented above.
-    *
-    * @return
-    */
-  def prepareCappuccinoSequentially(): Future[Cappuccino] = {
-
-    import com.bytetrend.sandbox.scala.concurrent.CoffeeImplicits.{combine, toCoffeBeans, toMilk}
-
-    for {
-      ground <- grind("arabica beans")
-      water <- heatWater(Water(20))
-      foam <- frothMilk("milk")
-      espresso <- brew(ground, water)
-    } yield combine(espresso, foam)
   }
 
   /**
@@ -199,19 +198,47 @@ object FutureInParallel extends App {
   cappuccino.foreach(println)
 }
 
-object SumOfFutures extends App{
+object SumOfFutures extends App {
+
   import scala.concurrent.duration._
-  import scala.concurrent.{Future,ExecutionContext,Await}
+  import scala.concurrent.{Await, ExecutionContext, Future}
   import ExecutionContext.Implicits.global
-  val f1=Future{
+
+  val f1 = Future {
     Thread.sleep(10000)
-    1 }
-  val f2=Future{
+    1
+  }
+  val f2 = Future {
     Thread.sleep(10000)
-    2 }
-  val f3=for {
+    2
+  }
+  val f3 = for {
     v1 <- f1
     v2 <- f2
-  } yield (v1+v2)
-  println(Await.result(f3,30.second))
+  } yield v1 + v2
+  println(Await.result(f3, 30.second))
+}
+
+object UsingFilter extends App {
+  val f = Future {
+    5
+  }
+  val g = f filter {
+    _ % 2 == 1
+  }
+  val h = f filter {
+    _ % 2 == 0
+  }
+  val x = Await.result(g, Duration.Zero) // evaluates to 5
+  println(s"value is $x")
+
+  try {
+    val t = Await.result(h, Duration.Zero) // throw a NoSuchElementException
+    println(s" value $t")
+  } catch {
+    case e: NoSuchElementException => println(s"Exception $e")
+    case t:Throwable => println(s"some exception $t")
+  }
+
+
 }
