@@ -107,7 +107,7 @@ object DealingWithFuturesInActors extends App with PipeToSupport {
   val coffeeShop = system.actorOf(CoffeeMaker.props, CoffeeMaker.name)
   implicit val timeout: Timeout = Timeout(18 seconds)
   implicit val customer = system.actorOf(Customer.props, Customer.name)
-  (coffeeShop ? ("Arabica")).pipeTo(customer)
+  (coffeeShop ? "Arabica").pipeTo(customer)
   //  val coffee = Await.result(coffeeShop ? ("Arabica"), timeout.duration)
   //  println(coffee)
   scheduleShutdown()
